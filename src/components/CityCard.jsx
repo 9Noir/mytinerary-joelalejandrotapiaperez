@@ -10,7 +10,7 @@ export default function CityCard({ src, city, country, className }) {
                         <i className="fa-solid fa-location-dot"></i> {country}
                     </h2>
                 </div>
-                <Button className="xs:w-1/3 ">View More</Button>
+                <Button className="xs:w-2/3 ">View More</Button>
             </div>
         </div>
     );
