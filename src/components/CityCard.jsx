@@ -1,7 +1,7 @@
 import Button from "./Button";
 export default function CityCard({ src, city, country, className }) {
     return (
-        <div className={`grow rounded-lg shadow-lg relative flex overflow-hidden ${className}`}>
+        <div className={`rounded-lg shadow-lg relative flex overflow-hidden ${className}`}>
             <img className="w-full h-full object-cover absolute top-0 left-0" src={src} alt={`Photo of ${city}`} />
             <div className="relative flex flex-col w-full justify-between p-4 text-white">
                 <div className="flex flex-col">
