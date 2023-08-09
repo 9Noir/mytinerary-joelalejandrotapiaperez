@@ -8,13 +8,23 @@ export default function Carousel() {
 
     useEffect(
         () => {
-            axios("./data.json")
+            axios("./cities.json")
                 .then((res) => setData(res.data))
                 .catch((err) => console.log(err));
         }, //Callback que no debe retornar nada y no  puede ser asincrona
         [] //array de dependencias, cuando esta vacio se ejecuta una UNICA VEZ
         //Cuando tiene variables de dependencias EL EFECTO se ejecuta (cuando se monta y) CADA VEZ que varia/cambia alguna de esas variables
     );
+
+    useEffect(() => {
+        const intervalId = setTimeout(() => {
+            fordward();
+        }, 4000);
+
+        return () => {
+            clearTimeout(intervalId);
+        };
+    });
 
     function previous() {
         setIndex(index === 0 ? 6 : index - 3);
@@ -32,8 +42,8 @@ export default function Carousel() {
 
             <div className="flex w-full justify-center items-center relative">
                 <div className="w-full sm:w-10/12 h-full grid sm:grid-cols-2 gap-8">
-                    {data.slice(index, index + 4).map((each) => (
-                        <CityCard key={each.id} className="h-48" src={each.photo} city={each.city} country={each.id} />
+                    {data.slice(index, index + 4).map((each, id) => (
+                        <CityCard key={id} className="h-48" src={each.photo} city={each.city} country={each.country} />
                     ))}
                 </div>
                 <div className="absolute w-full justify-between flex hover:[&>*]:bg-white/50 [&>*]:px-4 [&>*]:py-2 [&>*]:rounded-full text-gray-500 text-5xl">
