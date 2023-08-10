@@ -42,8 +42,8 @@ export default function Carousel() {
 
             <div className="flex w-full justify-center items-center relative">
                 <div className="w-full sm:w-10/12 h-full grid sm:grid-cols-2 gap-8">
-                    {data.slice(index, index + 4).map((each, id) => (
-                        <CityCard key={id} className="h-48" src={each.photo} city={each.city} country={each.country} />
+                    {data.slice(index, index + 4).map((each) => (
+                        <CityCard key={data.indexOf(each)} id={data.indexOf(each)} className="h-48" src={each.photo} city={each.city} country={each.country} />
                     ))}
                 </div>
                 <div className="absolute w-full justify-between flex hover:[&>*]:bg-white/50 [&>*]:px-4 [&>*]:py-2 [&>*]:rounded-full text-gray-500 text-5xl">

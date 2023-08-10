@@ -1,5 +1,5 @@
 import Button from "./Button";
-export default function CityCard({ src, city, country, className }) {
+export default function CityCard({ src, city, country,id, className }) {
     return (
         <div className={`rounded-lg shadow-lg relative flex overflow-hidden ${className}`}>
             <img className="w-full h-full object-cover absolute top-0 left-0 brightness-90" src={src} alt={`Photo of ${city}`} />
@@ -10,7 +10,7 @@ export default function CityCard({ src, city, country, className }) {
                         <i className="fa-solid fa-location-dot"></i> {country}
                     </h2>
                 </div>
-                <Button className="xs:w-2/3 ">View More</Button>
+                <Button to={"/city/"+id} className="xs:w-2/3 ">View More</Button>
             </div>
         </div>
     );

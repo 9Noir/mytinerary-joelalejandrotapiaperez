@@ -25,7 +25,7 @@ export default function Cities() {
                 </div>
                 <div className="p-4 flex flex-wrap gap-8 justify-center bg-slate-200">
                     {data.map((each, id) => (
-                        <CityCard key={id} className="w-80 h-60" src={each.photo} city={each.city} country={each.country} />
+                        <CityCard key={id} id={id} className="w-80 h-60" src={each.photo} city={each.city} country={each.country} />
                     ))}
                 </div>
             </main>
