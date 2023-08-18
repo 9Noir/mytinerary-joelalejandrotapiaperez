@@ -14,22 +14,24 @@ export default function NavBar() {
     }
 
     return (
-        <header className="z-10 flex flex-wrap justify-between items-center p-4 w-full font-bold max-w-[1291px] mx-auto text-slate-100">
-            <Anchor to="/home" className="text-3xl text-center">
-                My Tinerary
-            </Anchor>
-            <button ref={menuRef} onClick={navbarToggle} className="hidden py-1 text-4xl max-sm:flex fa-solid fa-bars"></button>
-            <nav ref={navRef} className="flex text-lg [&>*]:p-3 gap-2 max-sm:w-full max-sm:flex-col max-sm:hidden sm:items-center">
-                <Anchor to="/home" className="hover:decoration-slate-300 hover:underline underline-offset-8 decoration-4">
-                    Home
+        <header className="!z-50 flex justify-center" >
+            <div className="absolute flex flex-wrap justify-between items-center p-4 w-full font-bold max-w-[1291px] mx-auto text-slate-100">
+                <Anchor to="/home" className="text-3xl text-center">
+                    My Tinerary
                 </Anchor>
-                <Anchor to="/cities" className="hover:decoration-slate-300 hover:underline underline-offset-8 decoration-4">
-                    Cities
-                </Anchor>
-                <Button className="px-5" to="/signin">
-                    <i className="fa-solid fa-user pr-2"></i>Login
-                </Button>
-            </nav>
+                <button ref={menuRef} onClick={navbarToggle} className="hidden py-1 text-4xl max-sm:flex fa-solid fa-bars"></button>
+                <nav ref={navRef} className="flex text-lg [&>*]:p-3 gap-2 max-sm:w-full max-sm:flex-col max-sm:hidden sm:items-center">
+                    <Anchor to="/home" className="hover:decoration-slate-300 hover:underline underline-offset-8 decoration-4">
+                        Home
+                    </Anchor>
+                    <Anchor to="/cities" className="hover:decoration-slate-300 hover:underline underline-offset-8 decoration-4">
+                        Cities
+                    </Anchor>
+                    <Button className="px-5" to="/signin">
+                        <i className="fa-solid fa-user pr-2"></i>Login
+                    </Button>
+                </nav>
+            </div>
         </header>
     );
 }

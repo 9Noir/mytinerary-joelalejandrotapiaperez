@@ -1,17 +1,18 @@
 import Button from "../components/Button";
 import Carousel from "../components/Carousel";
 
-Button;
 export default function Home() {
     return (
         <>
-            <div className="absolute w-full min-h-full bg-cover bg-center bg-[url('./img/home.jpg')] brightness-50"></div>
-            <main className="z-10 grow p-4 flex max-w-[1291px] mx-auto">
+            <div className="absolute overflow-hidden w-full h-screen">
+                <div className="absolute -z-0 w-full overflow-hidden h-full bg-cover bg-center bg-[url('./img/home.jpg')] brightness-50 animate-zoom"></div>
+            </div>
+            <main className="grow p-4 flex max-w-[1291px] mx-auto">
                 <div className="flex flex-col gap-4 items-center">
-                    <div className="h-[90vh] flex flex-col justify-center items-center text-slate-100 text-center max-w-md gap-4">
+                    <div className="h-screen flex flex-col justify-center items-center text-slate-100 text-center max-w-md gap-4">
                         <h1 className="text-5xl font-bold">My Tineraries</h1>
-                        <p className="text-2xl italic font-thin">"Find your perfect trip, designed by insiders who know and love their cities!".</p>
-                        <Button to="/cities" className=" text-xl px-8">
+                        <p className="text-2xl italic font-thin">"Find your perfect trip, designed by insiders who know and love their cities!"</p>
+                        <Button to="/cities" className=" text-xl px-8 bg-white/30 animate-pulse hover:animate-none">
                             Explore now!
                         </Button>
                     </div>

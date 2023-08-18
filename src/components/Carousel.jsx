@@ -1,20 +1,17 @@
 import { useEffect, useState } from "react";
 import CityCard from "./CityCard";
 import axios from "axios";
+import apiUrl from "../apiUrl.js"
 
 export default function Carousel() {
     const [data, setData] = useState([]);
     const [index, setIndex] = useState(0);
 
-    useEffect(
-        () => {
-            axios("./cities.json")
-                .then((res) => setData(res.data))
-                .catch((err) => console.log(err));
-        }, //Callback que no debe retornar nada y no  puede ser asincrona
-        [] //array de dependencias, cuando esta vacio se ejecuta una UNICA VEZ
-        //Cuando tiene variables de dependencias EL EFECTO se ejecuta (cuando se monta y) CADA VEZ que varia/cambia alguna de esas variables
-    );
+    useEffect(() => {
+        axios(apiUrl+"/cities")
+            .then((res) => setData(res.data.response))
+            .catch((err) => console.log(err));
+    }, []);
 
     useEffect(() => {
         const intervalId = setTimeout(() => {
@@ -43,7 +40,7 @@ export default function Carousel() {
             <div className="flex w-full justify-center items-center relative">
                 <div className="w-full sm:w-10/12 h-full grid sm:grid-cols-2 gap-8">
                     {data.slice(index, index + 4).map((each) => (
-                        <CityCard key={data.indexOf(each)} id={data.indexOf(each)} className="h-48" src={each.photo} city={each.city} country={each.country} />
+                        <CityCard key={data.indexOf(each)} id={each._id} className="h-48" src={each.photo} city={each.city} country={each.country} />
                     ))}
                 </div>
                 <div className="absolute w-full justify-between flex hover:[&>*]:bg-white/50 [&>*]:px-4 [&>*]:py-2 [&>*]:rounded-full text-gray-500 text-5xl">

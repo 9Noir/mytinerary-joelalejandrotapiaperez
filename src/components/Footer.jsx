@@ -1,7 +1,7 @@
 import { Link as Anchor } from "react-router-dom";
 export default function Footer() {
     return (
-        <footer className=" text-slate-100 py-8 relative">
+        <footer className="text-slate-100 py-8 relative">
             <div className="absolute top-0 left-0 w-full h-full bg-slate-700"></div>
             <div className="relative flex flex-wrap gap-4 px-4 justify-between w-full max-w-[1291px] mx-auto">
                 <div className="space-y-2 grid">
