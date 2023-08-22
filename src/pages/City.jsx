@@ -1,34 +1,45 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Button from "../components/Button";
+import Itinerary from "../components/Itinerary";
+import BgImg from "../components/BgImg";
 
 export default function City() {
-    window.scrollTo(0, 0);
     const { city_id } = useParams();
     const [data, setData] = useState({});
+    const itineraryRef = useRef(null);
+
     useEffect(() => {
-        axios("http://localhost:8000/api/cities/"+city_id)
+        window.scrollTo(0, 0);
+        axios("http://localhost:8000/api/cities/" + city_id)
             .then((res) => setData(res.data.response))
             .catch((err) => console.log(err));
     }, []);
 
+    function scrollToItinerary() {
+        itineraryRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+    
     return (
         <>
-            <div
-                className="absolute w-full min-h-full bg-cover bg-center  brightness-50"
-                style={{
-                    backgroundImage: `url(${data.photo})`,
-                }}></div>
-
-            <main className="z-10 grow p-4 flex max-w-[1291px] mx-auto h-screen">
-                <div className="flex flex-col gap-4 items-center">
+            <BgImg url={data.photo} className={"h-1/2"} />
+            <main className="">
+                <section className="flex flex-col gap-4 items-center h-screen">
                     <div className="h-screen flex flex-col justify-center items-center text-slate-100 text-center max-w-2xl gap-4">
                         <h1 className="text-5xl font-bold">{data.city}</h1>
                         <p className="text-2xl italic font-thin">{data.smallDescription}</p>
-                        <Button className=" text-xl px-8">View Iterinaries ↓</Button>
+                        <Button to={"/cities"} className="bg-white/30 text-xl px-8">
+                            Back to cities
+                        </Button>
+                        <Button className="text-xl px-8" onClick={scrollToItinerary}>
+                            View Iterinaries ↓
+                        </Button>
                     </div>
-                </div>
+                </section>
+                <section ref={itineraryRef} className="space-y-8">
+                    <Itinerary city_id={city_id} user={data.admin_id} />
+                </section>
             </main>
         </>
     );
