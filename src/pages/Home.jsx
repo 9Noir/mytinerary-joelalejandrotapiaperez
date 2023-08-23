@@ -6,7 +6,7 @@ export default function Home() {
     return (
         <>
             <div className="absolute overflow-hidden w-full h-screen">
-                <BgImg url={"./img/home.jpg"} className={""} />
+                <BgImg url={"./img/home.jpg"} className={"animate-zoom"} />
             </div>
             <main>
                 <section className="h-screen flex flex-col justify-center items-center text-slate-100 text-center max-w-md gap-4 m-auto">

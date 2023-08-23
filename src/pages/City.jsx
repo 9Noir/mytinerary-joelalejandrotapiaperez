@@ -20,7 +20,7 @@ export default function City() {
     function scrollToItinerary() {
         itineraryRef.current.scrollIntoView({ behavior: "smooth" });
     }
-    
+
     return (
         <>
             <BgImg url={data.photo} className={"h-1/2"} />
