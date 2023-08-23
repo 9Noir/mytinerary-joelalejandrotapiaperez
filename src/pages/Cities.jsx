@@ -11,7 +11,7 @@ export default function Cities() {
     const [sortQuery, setSortQuery] = useState("&sort=city&order=ASC");
 
     function filter(event) {
-        setFilterQuery("city=" + event.target.value);
+        setFilterQuery("city=" + event.target.value.trim());
     }
     function sort(event) {
         setSortQuery(event.target.classList.contains("fa-arrow-down-z-a") ? "&sort=city&order=DESC" : "&sort=city&order=ASC");
@@ -28,7 +28,7 @@ export default function Cities() {
     return (
         <>
             <BgImg url={"./img/cities.jpg"} className={"!h-1/2"} />
-            <main>
+            <main className="max-w-full">
                 <section className="h-[50vh] flex flex-col justify-center  text-center text-slate-100">
                     <div className="max-w-[1291px] m-auto">
                         <h1 className="text-4xl font-bold mb-4">Cities</h1>
