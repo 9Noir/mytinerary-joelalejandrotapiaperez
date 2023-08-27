@@ -16,11 +16,11 @@ export default function Home() {
                         Explore now!
                     </Button>
                 </section>
-                <section className="flex max-md:flex-wrap-reverse gap-6 items-center">
-                    <div className="flex flex-col items-center md:w-1/3 gap-6 xs:gap-12">
-                        <div className="font-bold text-4xl">Find the perfect destination</div>
+                <section className="flex max-md:flex-wrap gap-6 items-center">
+                    <div className="flex flex-col h-full items-center md:w-1/3 gap-6 xs:gap-12 bg-slate-100 p-8 rounded-lg shadow-xl">
+                        <div className="font-bold text-gray-900 text-4xl">Find the perfect destination</div>
                         <div className="text-gray-500 text-2xl">Our app will help you find the perfect path for your next trip. With an easy-to-use interface and a host of itinerary options, planning your next trip has never been easier.</div>
-                        <Button to="/cities" className="max-w-[346px] w-full text-xl">
+                        <Button to="/cities" className="max-w-xs w-full text-xl">
                             View more
                         </Button>
                     </div>
