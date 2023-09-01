@@ -4,13 +4,14 @@ import apiUrl from "../../apiUrl";
 
 const readActivities = createAsyncThunk("readActivities", async (id) => {
     return {
-        itineraries: await axios(apiUrl + "/activities?itinerary_id=" + id)
+        activities: await axios(apiUrl + "/activities?itinerary_id=" + id)
             .then((res) => {
                 return res.data.response;
             })
             .catch((err) => {
                 return null;
             }),
+        itinerary_id: id,
     };
 });
 

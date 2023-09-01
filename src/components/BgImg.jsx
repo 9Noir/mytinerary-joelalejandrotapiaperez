@@ -6,12 +6,7 @@ export default function BgImg({ url, className }) {
     return (
         <>
             {!imageLoaded && <div className={className + " absolute w-full h-full bg-slate-700"}></div>}
-            <div
-                onLoad={() => setImageLoaded(true)}
-                className={`${className} absolute w-full h-full bg-cover bg-center brightness-[.65] ${!imageLoaded && "opacity-0"}"`}
-                style={{
-                    backgroundImage: `url(${url})`,
-                }}></div>
+            <img onLoad={() => setImageLoaded(true)} className={`${className} absolute w-full h-full object-cover object-center brightness-[.65] shadow-lg ${!imageLoaded && "opacity-0"}`} src={url} alt="" />
         </>
     );
 }

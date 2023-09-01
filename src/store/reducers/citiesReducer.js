@@ -1,8 +1,8 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { readCities, readCity } from "../actions/citiesActions";
+import { readCarousel, readCities, readCity } from "../actions/citiesActions";
 
 // Estado inicial
-const initialState = { cities: null, city: null };
+const initialState = { carousel: null, cities: null, city: null };
 
 // Reducer utilizando createReducer de Redux Toolkit
 const citiesReducer = createReducer(
@@ -27,6 +27,9 @@ const citiesReducer = createReducer(
             //     console.log("REJECTED")
             //     return { ...state, cities: [] };
             // })
+            .addCase(readCarousel.fulfilled, (state, action) => {
+                return { ...state, carousel: action.payload };
+            })
             .addCase(readCity.fulfilled, (state, action) => {
                 let newState = {
                     ...state,

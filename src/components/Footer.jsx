@@ -1,7 +1,7 @@
 import { Link as Anchor } from "react-router-dom";
 export default function Footer() {
     return (
-        <footer className="flex justify-center text-slate-100 py-8 bg-slate-900">
+        <footer className="flex justify-center text-neutral-100 py-8 bg-slate-600 dark:border-t-2 border-slate-600 dark:bg-black">
             <div className="flex flex-wrap gap-8 px-4 justify-between w-[1291px] hover:[&_a]:underline [&_a]:underline-offset-8 [&_a]:decoration-4">
                 <div className="grid gap-2">
                     <Anchor to="/home" className="text-xl font-bold">

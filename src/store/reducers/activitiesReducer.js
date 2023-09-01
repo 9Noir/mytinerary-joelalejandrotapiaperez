@@ -1,12 +1,12 @@
 import { createReducer } from "@reduxjs/toolkit";
-import readItineraries from "../actions/itinerariesActions";
+import readActivities from "../actions/activitiesActions";
 
-const initialState = { activities: null };
+const initialState = {};
 const activitiesReducer = createReducer(initialState, (builder) =>
-    builder.addCase(readItineraries.fulfilled, (state, action) => {
+    builder.addCase(readActivities.fulfilled, (state, action) => {
         return {
             ...state,
-            activities: action.payload.itineraries,
+            [action.payload.itinerary_id]: action.payload.activities,
         };
     })
 );
