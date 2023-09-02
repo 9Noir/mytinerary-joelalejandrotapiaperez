@@ -3,6 +3,7 @@ import citiesReducer from "./reducers/citiesReducer";
 import itinerariesReducer from "./reducers/itinerariesReducer";
 import activitiesReducer from "./reducers/activitiesReducer";
 import { usersReducer } from "./reducers/usersReducer";
+import { authReducer } from "./reducers/authReducer";
 
 // Configuración del store utilizando Redux Toolkit
 export default configureStore({
@@ -11,5 +12,6 @@ export default configureStore({
         itineraries: itinerariesReducer,
         activities: activitiesReducer,
         users: usersReducer,
+        auth: authReducer,
     },
 });
