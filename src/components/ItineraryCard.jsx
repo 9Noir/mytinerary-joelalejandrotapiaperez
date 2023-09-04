@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Activity from "./ActivityCard.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import readActivities from "../store/actions/activitiesActions.js";
-import { toggleLike } from "../store/actions/itinerariesActions.js";
+import { toggleLike, createItineraryComment } from "../store/actions/itinerariesActions.js";
 import NoResultsMessage from "./NoResultsMessage.jsx";
 import ProfilePhoto from "./ProfilePhoto.jsx";
 import { current } from "@reduxjs/toolkit";
+import Button from "./Button.jsx";
 import Comment from "./Comment.jsx";
 
 export default function Itinerary({ itineraryData }) {
     const [showDetails, setShowDetails] = useState(false);
     // const [like, setLike] = useState(false);
     const activities = useSelector((store) => store.activities[itineraryData._id]);
-    const itineraries = useSelector((store) => store.itineraries.itineraries);
+    // const itineraries = useSelector((store) => store.itineraries.itineraries);
     const loggedInUser = useSelector((store) => store.auth.user);
-    const userLikes = useSelector((store) => store.auth.likes);
+    // const userLikes = useSelector((store) => store.auth.likes);
     const dispatch = useDispatch();
+    const newCommentRef = useRef(null);
 
     useEffect(() => {
         dispatch(readActivities(itineraryData._id));
@@ -25,7 +27,13 @@ export default function Itinerary({ itineraryData }) {
     function handlerLike() {
         loggedInUser && dispatch(toggleLike({ _id: foundLikeId, user_id: loggedInUser._id, itinerary_id: itineraryData._id }));
     }
-
+    function submitComment() {
+        const newComment = { content: newCommentRef.current.value, user_id: loggedInUser._id, itinerary_id: itineraryData._id };
+        const obj = { comment: newComment, comments: itineraryData.comments, user: loggedInUser };
+        dispatch(createItineraryComment(obj));
+        newCommentRef.current.value = "";
+    }
+    console.log(itineraryData);
     return (
         <>
             <div className="relative overflow-hidden w-[min(100%,34rem)] border bg-slate-50 dark:bg-black dark:border dark:border-slate-700 rounded-lg shadow-xl">
@@ -36,7 +44,7 @@ export default function Itinerary({ itineraryData }) {
                 <img className="w-full aspect-video object-cover" src={itineraryData.photo} alt={`Photo of ${itineraryData.name}`} />
                 <div className="flex p-4 pb-0 gap-4">
                     <div className="flex flex-col items-center min-w-[5rem]">
-                        <ProfilePhoto className="w-14 sm:w-20 " url={itineraryData.creator.photo} name={itineraryData.creator.name} />
+                        <ProfilePhoto className="w-14 sm:w-20" url={itineraryData.creator.photo} name={itineraryData.creator.name} />
                         <p className="text-xs font-light mt-1">Created by</p>
                         <p className="leading-3 font-bold text-center">{itineraryData.creator.name}</p>
                     </div>
@@ -72,15 +80,22 @@ export default function Itinerary({ itineraryData }) {
 
                         <h2 className="text-center text-lg font-bold dark:text-neutral-300">COMMENTS</h2>
                         <section className="border border-slate-300 dark:border-slate-700 mx-4 mb-4 bg-slate-50 dark:bg-black p-2 xs:p-4 rounded-lg">
-                            <div className="mt-4 space-y-4">
+                            <div className="my-auto space-y-4">
                                 {[...itineraryData.comments]
-                                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                                    .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
                                     .map((comment, i) => (
-                                        <Comment key={i} comment={comment} />
+                                        <Comment key={i} comment={comment} comments={itineraryData.comments} />
                                     ))}
-                                <div className="flex items-center gap-4">
-                                    <ProfilePhoto className="w-8 ml-3" size="2rem" url="https://pbs.twimg.com/media/EvumtCWXEBE0CdF.jpg" name="Snoopy" />
-                                    <input type="text" className="w-full outline-none bg-slate-200/60 dark:bg-slate-700 focus:ring-blue-600 ring-2 ring-transparent px-4 py-2 rounded-lg shadow-md" placeholder="" />
+                                <div className="flex items-start gap-4">
+                                    <ProfilePhoto className={`${loggedInUser && "border-2 border-blue-600 brightness-125"} w-10 `} url={loggedInUser ? loggedInUser.photo : "https://pbs.twimg.com/media/EvumtCWXEBE0CdF.jpg"} name="Snoopy" />
+                                    <div className="grid w-full gap-2">
+                                        <textarea disabled={!loggedInUser} ref={newCommentRef} className="" name="" id="" placeholder="Share your city adventure..."></textarea>
+                                        <button disabled={!loggedInUser} onClick={loggedInUser && submitComment} className="bg-blue-600 disabled:bg-neutral-500 disabled:hover:scale-100 text-neutral-200 justify-self-end w-fit px-8 py-2 rounded-lg fa-solid fa-paper-plane hover:scale-125 duration-150"></button>
+
+                                        {/* <button className="bg-blue-700 w-20 rounded-lg text-white ani">Post</button> */}
+                                    </div>
+                                    {/* <input ref={newCommentRef} onSubmit={submitComment} disabled={!loggedInUser} placeholder="Share your city adventure..." type="text" className="w-full outline-none bg-slate-200/60 dark:bg-slate-700 focus:ring-blue-600 ring-2 ring-transparent px-4 py-2 rounded-lg shadow-md" /> */}
+                                    {/* <button onClick={submitComment}>test</button> */}
                                 </div>
                             </div>
                         </section>

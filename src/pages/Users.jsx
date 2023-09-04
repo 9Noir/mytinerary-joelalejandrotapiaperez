@@ -16,10 +16,9 @@ export default function Users() {
         dispatch(readUsers());
     }, []);
 
-    console.log(likes);
     return (
         <>
-            <div className="w-full h-[5.5rem] bg-slate-600 shadow-lg"></div>
+            <div className="w-full py-9 bg-slate-600 shadow-lg"></div>
             <main className="max-w-full flex-row items-start dark:text-neutral-300">
                 <div className="flex flex-wrap justify-center gap-4 overflow-hidden py-8">
                     {users &&
@@ -63,3 +62,10 @@ export default function Users() {
         </>
     );
 }
+
+// <div class="min-h-screen flex bg-black">
+//   <div class="m-auto grid w-fit rounded-lg bg-gradient-to-tl from-blue-600 to-blue-500/80 border-2 border-blue-600 p-4 text-neutral-200 shadow-lg duration-500 hover:translate-x-[-100%]">
+//     <h2 class="text-lg font-bold">Successful Login!</h2>
+//     <p class="">Welcome back, [Username]! You're in.</p>
+//   </div>
+// </div>

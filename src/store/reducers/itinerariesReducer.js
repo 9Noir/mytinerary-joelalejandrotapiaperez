@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { readItineraries, readPopularItineraries, toggleLike } from "../actions/itinerariesActions";
+import { createItineraryComment, deleteItineraryComment, readItineraries, readPopularItineraries, toggleLike, updateItineraryComment } from "../actions/itinerariesActions";
 
 const initialState = { itineraries: null, popular: null }; // Array de itinerarios
 const itinerariesReducer = createReducer(initialState, (builder) =>
@@ -35,7 +35,19 @@ const itinerariesReducer = createReducer(initialState, (builder) =>
                 state.itineraries = state.itineraries.map((each) => (each._id === like.itinerary_id ? itineraryToUpdate : each));
             }
         })
+        .addCase(createItineraryComment.fulfilled, (state, action) => {
+            const { id, comments } = action.payload;
+            console.log(action.payload);
+            state.itineraries = state.itineraries.map((each) => (each._id === id ? { ...each, comments: comments } : each));
+        })
+        .addCase(deleteItineraryComment.fulfilled, updateItineraryComments)
+        .addCase(updateItineraryComment.fulfilled, updateItineraryComments)
 );
+
+function updateItineraryComments(state, action) {
+    const { _id, comments } = action.payload;
+    state.itineraries = state.itineraries.map((each) => (each._id === _id ? { ...each, comments } : each));
+}
 
 export default itinerariesReducer;
 

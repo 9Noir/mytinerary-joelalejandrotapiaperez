@@ -9,32 +9,32 @@ export default function Signin() {
             <main className="mb-0 lg:flex-row flex-wrap w-full justify-between max-lg:justify-center items-center min-h-screen">
                 <h1 className="max-lg:mb-8 text-6xl font-bold text-center text-neutral-100">My Tinerary</h1>
                 <form className="max-w-md w-full bg-slate-100 dark:bg-black p-4 xs:p-10 flex flex-col gap-4 text-black rounded-lg shadow-lg">
-                    <p className="text-gray-400 text-xs">Step 1 of 2</p>
-                    <h1 className="text-lg">Sign in</h1>
+                    <p className="text-neutral-400 text-xs">Step 1 of 2</p>
+                    <h1 className="text-lg dark:text-neutral-300">Sign in</h1>
                     <div className="flex items-center text-xs">
-                        <p className=" pr-2">New user? </p>
-                        <Anchor to="/signup" className="text-blue-600">
+                        <p className=" pr-2 dark:text-neutral-300">New user? </p>
+                        <Anchor to="/signup" className="text-blue-600 dark:text-blue-400">
                             Create an account
                         </Anchor>
                     </div>
                     <div className="flex flex-col">
-                        <label htmlFor="email" className="text-gray-400 text-sm">
+                        <label htmlFor="email" className="text-neutral-400 text-sm">
                             Email
                         </label>
-                        <input type="email" name="email" id="email" autoComplete="email" className="bg-slate-100 border-b-2 border-slate-300" />
+                        <input type="email" name="email" id="email" autoComplete="email" />
                     </div>
-                    <div className="flex flex-col">
-                        <label htmlFor="password" className="text-gray-400 text-sm">
+                    <div className="flex flex-col mb-4">
+                        <label htmlFor="password" className="text-neutral-400 text-sm">
                             Password
                         </label>
-                        <input type="password" name="password" id="password" autoComplete="current-password" className="bg-slate-100 border-b-2 border-slate-300" />
+                        <input className="bg-transparent" type="password" name="password" id="password" autoComplete="current-password" />
                     </div>
                     <Button>Continue</Button>
                     <div class="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
                         <p class="mx-4 mb-0 text-center text-xl text-neutral-300">O</p>
                     </div>
 
-                    <div className="w-full grid gap-6">
+                    <div className="w-full grid gap-6 max-xs:text-xs">
                         {/* <Button className="flex gap-4 border border-neutral-300 !rounded-full  text-neutral-500/80 bg-white shadow-md hover:bg-white hover:brightness-[.95]">
                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="1.5em" height="1.5em" viewBox="0 0 48 48">
                                 <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>

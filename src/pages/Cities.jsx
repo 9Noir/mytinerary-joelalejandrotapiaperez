@@ -39,7 +39,7 @@ export default function Cities() {
                 </section>
                 <section className="flex justify-center  items-center">
                     <div className="w-96 flex overflow-hidden rounded-lg shadow-md">
-                        <input onChange={filter} type="search" className="dark:bg-slate-600 dark:text-neutral-300 outline-none focus:ring-blue-600 ring-2 ring-transparent w-full px-6 py-4" placeholder={"🔍︎ Search your " + searchType} />
+                        <input onChange={filter} type="search" className="p-4 pr-1 rounded-none bg-white" placeholder={"🔍︎ Search your " + searchType} />
                         <button onClick={() => setSearchType(searchType == "city" ? "country" : "city")} className={`text-xl text-blue-500 dark:bg-slate-600 dark:text-neutral-300 px-3 bg-white active:animate-ping shadow-md fa-solid ${searchType == "city" ? "fa-city" : "fa-earth-americas"}`}></button>
                         <button onClick={sort} className="fa-solid fa-arrow-down-a-z text-3xl bg-blue-700 text-neutral-200 px-2 active:animate-ping"></button>
                     </div>

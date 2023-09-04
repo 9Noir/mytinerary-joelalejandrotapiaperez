@@ -50,7 +50,7 @@ export default function City() {
                         </Button>
                     </div>
                 </section>
-                <section ref={itineraryRef} className="space-y-8 mb-8 text-neutral-500 dark:text-neutral-300">
+                <section className="space-y-8 mb-8 text-neutral-500 dark:text-neutral-300">
                     <h1 className="text-center text-3xl font-bold">FEATURES</h1>
                     <div className="flex flex-wrap justify-center gap-4 xs:gap-16">
                         <FeatureCard title={`Currency: ${city.currency.abbreviation}`} src="../img/png/currency.png" className="dark:border-sky-500 dark:shadow-sky-500 from-sky-500/50 via-sky-400 to-sky-200" />
@@ -58,7 +58,9 @@ export default function City() {
                         <FeatureCard title={`Language: ${city.language}`} src="../img/png/language.png" className="dark:border-fuchsia-400 dark:shadow-fuchsia-500 bg-gradient-to-tr from-fuchsia-500/60 via-fuchsia-400 to-fuchsia-300" />
                     </div>
 
-                    <h1 className="text-center text-3xl font-bold">ITINERARIES</h1>
+                    <h1 ref={itineraryRef} className="text-center text-3xl font-bold">
+                        ITINERARIES
+                    </h1>
                     <div className="grid justify-items-center gap-16">
                         {!itineraries && <NoResultsMessage icon="fa-solid fa-mountain-city drop-shadow-xl" title="No Itineraries Yet" text={"Currently, there are no itineraries available for this city. Check back later for updates!"} />}
                         {itineraries?.map((each, i) => (
