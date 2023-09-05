@@ -1,15 +1,16 @@
 import { Outlet } from "react-router-dom";
-import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
-import BackToTopButton from "../components/BackToTopButton";
-
+import NavBar from "../components/layout/NavBar";
+import Footer from "../components/layout/Footer";
+import BackToTopButton from "../components/layout/BackToTopButton";
+import ScrollToTop from "../components/layout/ScrollToTop";
 export default function MainLayout() {
-  return (
-    <>
-      <NavBar />
-      <Outlet />
-      <Footer />
-      <BackToTopButton/>
-    </>
-  );
+    return (
+        <>
+            <NavBar />
+            <Outlet />
+            <Footer />
+            <BackToTopButton />
+            <ScrollToTop />
+        </>
+    );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "./Button";
 import Loading from "./Loading";
 
@@ -11,7 +11,7 @@ export default function CityCard({ src, city, country, id, className }) {
             {!imageLoaded ? (
                 <Loading />
             ) : (
-                <div className="relative flex flex-col w-full justify-between p-4 text-slate-100">
+                <div className="relative flex flex-col w-full justify-between p-4 text-neutral-100">
                     <div className="flex flex-col">
                         <h1 className="text-2xl font-bold">{city}</h1>
                         <h2 className="text-xl">

@@ -6,7 +6,7 @@ export default function NotFound() {
     <>
     <BgImg url={"./img/404.jpg"} />
       <main>
-        <div className="m-auto flex flex-col text-slate-100 items-center">
+        <div className="m-auto flex flex-col text-neutral-100 items-center">
           <h1 className="text-7xl font-extrabold">Oops!</h1>
           <h2 className="text-4xl font-semibold mt-4">404 Page Not Found</h2>
           <p className="text-2xl font-light mb-4">
