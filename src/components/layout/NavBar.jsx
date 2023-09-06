@@ -2,11 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import Button from "../Button";
 import { NavLink as Anchor } from "react-router-dom";
 import ThemeSwitcher from "./ThemeSwitcher";
+import { useDispatch, useSelector } from "react-redux";
+import ProfilePhoto from "../ProfilePhoto";
+import { signout } from "../../store/actions/authActions";
 
 export default function NavBar() {
+    const user = useSelector((store) => store.auth.user);
     const [showMenu, setShowMenu] = useState(false);
     const navbarRef = useRef(null);
-
+    const dispatch = useDispatch();
     function navbarToggle(close = false) {
         setShowMenu(close ? false : !showMenu);
     }
@@ -44,9 +48,18 @@ export default function NavBar() {
                         <Anchor onClick={() => navbarToggle(true)} to="/users" className="hover:decoration-slate-300 hover:underline underline-offset-8 decoration-4">
                             Users
                         </Anchor>
-                        <Button className="px-5 !py-2" to="/signin">
-                            <i className="fa-solid fa-user pr-2"></i>Login
-                        </Button>
+
+                        {user ? (
+                            <div className="flex gap-4 items-center">
+                                <ProfilePhoto className="w-7" url={user.photo} name={user.name} />
+                                <p className="max-sm:hidden">{user.name}</p>
+                                <button title="Logout" onClick={() => localStorage.token && dispatch(signout())} className="hover:scale-110 duration-200 active:animate-ping drop-shadow-lg fa-solid fa-right-to-bracket"></button>
+                            </div>
+                        ) : (
+                            <Button className="px-5 !py-2" to="/signin">
+                                <i className="fa-solid fa-user pr-2"></i>Login
+                            </Button>
+                        )}
                     </nav>
                 </div>
             </div>

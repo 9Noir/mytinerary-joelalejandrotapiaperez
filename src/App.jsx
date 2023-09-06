@@ -1,14 +1,15 @@
 import { RouterProvider } from "react-router-dom";
 import router from "./router";
-import { Provider } from "react-redux";
-import store from "./store/store";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { tokenSignin } from "./store/actions/authActions";
 
 function App() {
-    return (
-        <Provider store={store}>
-            <RouterProvider router={router} />
-        </Provider>
-    );
+    const dispatch = useDispatch();
+    useEffect(() => {
+        localStorage.token && dispatch(tokenSignin());
+    }, []);
+    return <RouterProvider router={router} />;
 }
 
 export default App;

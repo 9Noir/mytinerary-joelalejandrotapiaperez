@@ -5,17 +5,13 @@ import readActivities from "../store/actions/activitiesActions.js";
 import { toggleLike, createItineraryComment } from "../store/actions/itinerariesActions.js";
 import NoResultsMessage from "./NoResultsMessage.jsx";
 import ProfilePhoto from "./ProfilePhoto.jsx";
-import { current } from "@reduxjs/toolkit";
 import Button from "./Button.jsx";
 import Comment from "./Comment.jsx";
 
 export default function Itinerary({ itineraryData }) {
     const [showDetails, setShowDetails] = useState(false);
-    // const [like, setLike] = useState(false);
     const activities = useSelector((store) => store.activities[itineraryData._id]);
-    // const itineraries = useSelector((store) => store.itineraries.itineraries);
     const loggedInUser = useSelector((store) => store.auth.user);
-    // const userLikes = useSelector((store) => store.auth.likes);
     const dispatch = useDispatch();
     const newCommentRef = useRef(null);
 
@@ -27,13 +23,12 @@ export default function Itinerary({ itineraryData }) {
     function handlerLike() {
         loggedInUser && dispatch(toggleLike({ _id: foundLikeId, user_id: loggedInUser._id, itinerary_id: itineraryData._id }));
     }
-    function submitComment() {
+    function submitComment(e) {
+        e.preventDefault();
         const newComment = { content: newCommentRef.current.value, user_id: loggedInUser._id, itinerary_id: itineraryData._id };
-        const obj = { comment: newComment, comments: itineraryData.comments, user: loggedInUser };
-        dispatch(createItineraryComment(obj));
+        newComment.content && dispatch(createItineraryComment(newComment));
         newCommentRef.current.value = "";
     }
-    console.log(itineraryData);
     return (
         <>
             <div className="relative overflow-hidden w-[min(100%,34rem)] border bg-slate-50 dark:bg-black dark:border dark:border-slate-700 rounded-lg shadow-xl">
@@ -79,24 +74,20 @@ export default function Itinerary({ itineraryData }) {
                         </section>
 
                         <h2 className="text-center text-lg font-bold dark:text-neutral-300">COMMENTS</h2>
-                        <section className="border border-slate-300 dark:border-slate-700 mx-4 mb-4 bg-slate-50 dark:bg-black p-2 xs:p-4 rounded-lg">
+                        <section className="min-h-fit border border-slate-300 dark:border-slate-700 mx-4 mb-4 bg-slate-50 dark:bg-black p-2 xs:p-4 rounded-lg">
                             <div className="my-auto space-y-4">
+                                <div className="flex items-start gap-4">
+                                    <ProfilePhoto className={`${loggedInUser && "border-2 border-blue-600 brightness-125"} w-10 `} url={loggedInUser ? loggedInUser.photo : "https://pbs.twimg.com/media/EvumtCWXEBE0CdF.jpg"} name="Snoopy" />
+                                    <form className="grid w-full gap-2">
+                                        <textarea disabled={!loggedInUser} ref={newCommentRef} className="" name="" id="" placeholder="Share your city adventure..."></textarea>
+                                        <button type="submit" disabled={!loggedInUser} onClick={loggedInUser && submitComment} className="bg-blue-600 disabled:bg-neutral-500 disabled:hover:scale-100 text-neutral-200 justify-self-end w-fit px-8 py-2 rounded-lg fa-solid fa-paper-plane hover:scale-125 duration-150"></button>
+                                    </form>
+                                </div>
                                 {[...itineraryData.comments]
-                                    .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+                                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
                                     .map((comment, i) => (
                                         <Comment key={i} comment={comment} comments={itineraryData.comments} />
                                     ))}
-                                <div className="flex items-start gap-4">
-                                    <ProfilePhoto className={`${loggedInUser && "border-2 border-blue-600 brightness-125"} w-10 `} url={loggedInUser ? loggedInUser.photo : "https://pbs.twimg.com/media/EvumtCWXEBE0CdF.jpg"} name="Snoopy" />
-                                    <div className="grid w-full gap-2">
-                                        <textarea disabled={!loggedInUser} ref={newCommentRef} className="" name="" id="" placeholder="Share your city adventure..."></textarea>
-                                        <button disabled={!loggedInUser} onClick={loggedInUser && submitComment} className="bg-blue-600 disabled:bg-neutral-500 disabled:hover:scale-100 text-neutral-200 justify-self-end w-fit px-8 py-2 rounded-lg fa-solid fa-paper-plane hover:scale-125 duration-150"></button>
-
-                                        {/* <button className="bg-blue-700 w-20 rounded-lg text-white ani">Post</button> */}
-                                    </div>
-                                    {/* <input ref={newCommentRef} onSubmit={submitComment} disabled={!loggedInUser} placeholder="Share your city adventure..." type="text" className="w-full outline-none bg-slate-200/60 dark:bg-slate-700 focus:ring-blue-600 ring-2 ring-transparent px-4 py-2 rounded-lg shadow-md" /> */}
-                                    {/* <button onClick={submitComment}>test</button> */}
-                                </div>
                             </div>
                         </section>
                     </div>

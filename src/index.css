@@ -25,8 +25,12 @@
     .itinerary-details {
         @apply font-medium text-neutral-500;
     }
+    label {
+        @apply mb-2;
+    }
     input,
-    textarea {
+    textarea,
+    select {
         @apply w-full outline-none dark:text-neutral-300 bg-slate-200/60 dark:bg-slate-600 focus:ring-blue-600 ring-2 ring-transparent p-4 rounded-lg shadow-md
         /* @apply py-2 px-2 rounded-lg bg-blue-100/50 text-slate-900/70 shadow-md focus:border focus:border-blue-600 dark:bg-slate-600 dark:text-slate-50/70 placeholder:dark:text-slate-50/80 [&>*]:dark:bg-slate-600; */
         /* @apply dark:bg-slate-600 dark:text-neutral-300 outline-none focus:ring-blue-600 ring-2 ring-transparent w-full px-6 py-4 */
