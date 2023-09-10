@@ -1,2 +1,2 @@
-const apiUrl = "http://localhost:8000/api";
+const apiUrl = "https://mytinerary-back-mern.vercel.app/api";
 export default apiUrl;

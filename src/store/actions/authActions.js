@@ -8,28 +8,29 @@ export const auth = createAction("auth", (user) => {
         payload: user, // El objeto de usuario que se envía al reducer
     };
 });
-export const readLikes = createAsyncThunk(
-    "readLikes",
-    async (id) =>
-        await axios
-            .get(apiUrl + "/likes?user_id=" + id)
-            .then((res) => res.data.response)
-            .catch((err) => null)
-);
+
 export const signup = createAsyncThunk("signup", async (obj) => {
-    const data = await axios.post(apiUrl + "/auth/signup", obj).then((res) => res.data.response);
-    return data;
+    try {
+        const data = await axios.post(apiUrl + "/auth/signup", obj).then((res) => res.data);
+        return data;
+    } catch (error) {
+        return error.response.data;
+    }
 });
 export const signin = createAsyncThunk("signin", async (obj) => {
-    const data = await axios.post(apiUrl + "/auth/signin", obj).then((res) => res.data.response);
-    localStorage.token = data.token;
-    return data;
+    try {
+        const data = await axios.post(apiUrl + "/auth/signin", obj).then((res) => res.data);
+        localStorage.token = data.response.token || null;
+        return data;
+    } catch (error) {
+        return error.response.data;
+    }
 });
 export const signout = createAsyncThunk("signout", async (obj) => {
     const authorization = { headers: { Authorization: `Bearer ${localStorage.token}` } };
-    await axios.post(apiUrl + "/auth/signout", null, authorization);
+    const data = await axios.post(apiUrl + "/auth/signout", null, authorization).then((res) => res.data);
     localStorage.removeItem("token");
-    return null;
+    return data;
 });
 export const tokenSignin = createAsyncThunk("tokenSignin", async () => {
     const authorization = { headers: { Authorization: `Bearer ${localStorage.token}` } };

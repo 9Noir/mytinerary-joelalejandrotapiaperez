@@ -34,7 +34,7 @@ export default function Comment({ comment, comments }) {
                         <button type="submit" className="-inset-y-4 right-2 text-xl absolute fa-solid fa-paper-plane hover:scale-125 duration-150"></button>
                     </form>
                 ) : (
-                    <p className="text-sm">{comment.content}</p>
+                    <p className="text-sm truncate whitespace-break-spaces">{comment.content}</p>
                 )}
             </div>
         </div>

@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Loading({ className }) {
     return (
         <div className={`${className} w-full h-full inset-0 flex items-center justify-center overflow-hidden bg-slate-400/50 animate-pulse rounded-lg`}>

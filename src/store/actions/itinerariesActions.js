@@ -19,11 +19,7 @@ async function fetchData(method, url, data, headers = {}) {
         });
 }
 
-export const readItineraries = createAsyncThunk("readItineraries", async (id) => {
-    return {
-        itineraries: await fetchData("GET", apiUrl + "/itineraries?city_id=" + id),
-    };
-});
+export const readItineraries = createAsyncThunk("readItineraries", async (id) => await fetchData("GET", apiUrl + "/itineraries?city_id=" + id));
 export const readPopularItineraries = createAsyncThunk("readPopularItineraries", async () => await fetchData("GET", apiUrl + "/itineraries/sorted-by-likes"));
 
 export const toggleLike = createAsyncThunk("toggleLike", async (obj) => {

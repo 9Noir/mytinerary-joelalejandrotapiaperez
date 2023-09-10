@@ -1,22 +1,23 @@
-import { Link as Anchor } from "react-router-dom";
+import { Link as Anchor, Navigate } from "react-router-dom";
 import BgImg from "../components/BgImg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { countryList } from "../components/countryList";
 import { signup } from "../store/actions/authActions";
 
 export default function Signup() {
+    const response = useSelector((store) => store.auth.response);
     const dispatch = useDispatch();
     function handleSubmit(e) {
         e.preventDefault();
         const formData = new FormData(event.target);
         const data = {};
-
         for (let [name, value] of formData) {
             if (value) data[name] = value;
         }
         dispatch(signup(data));
         console.log(data);
     }
+    if (response.message == "REGISTER_SUCCESS") return <Navigate to="/signin" />;
     return (
         <>
             <BgImg url={"./img/login.jpg"} />
@@ -36,27 +37,29 @@ export default function Signup() {
                             <label htmlFor="name" className="text-neutral-400 text-sm">
                                 Name
                             </label>
-                            <input type="name" name="name" id="name" autoComplete="name" required/>
+                            <input placeholder="Name" type="name" name="name" id="name" autoComplete="name" required />
                         </div>
                         <div className="flex flex-col">
                             <label htmlFor="lastName" className="text-neutral-400 text-sm">
                                 Last Name
                             </label>
-                            <input type="lastName" name="lastName" id="lastName" autoComplete="lastName" required/>
+                            <input placeholder="Last name" type="lastName" name="lastName" id="lastName" autoComplete="lastName" required />
                         </div>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="photo" className="text-neutral-400 text-sm">
                             URL photo
                         </label>
-                        <input type="photo" name="photo" id="photo" autoComplete="photo" />
+                        <input placeholder="https://example.com/photo.jpg" type="photo" name="photo" id="photo" autoComplete="photo" />
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="country" className="text-neutral-400 text-sm">
                             Country
                         </label>
-                        <select name="country" id="country" autoComplete="country">
-                            <option value=""></option>
+                        <select name="country" defaultValue="" id="country" autoComplete="country" required>
+                            <option value="" disabled>
+                                Select a country
+                            </option>
                             {countryList.map((country, i) => (
                                 <option key={i} value={country}>
                                     {country}
@@ -68,13 +71,13 @@ export default function Signup() {
                         <label htmlFor="email" className="text-neutral-400 text-sm">
                             Email
                         </label>
-                        <input type="email" name="email" id="email" autoComplete="email" required/>
+                        <input placeholder="example@email.com" type="email" name="email" id="email" autoComplete="email" pattern="[A-Za-z0-9._+\-']+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$" required />
                     </div>
                     <div className="flex flex-col  mb-4">
                         <label htmlFor="password" className="text-neutral-400 text-sm">
                             Password
                         </label>
-                        <input type="password" name="password" id="password" autoComplete="new-password" required/>
+                        <input placeholder="Min 6 characters" minLength={6} type="password" name="password" id="password" autoComplete="new-password" required />
                     </div>
                     <button type="submit" className="hover:bg-blue-500 active:animate-ping transition ease-in-out duration-300 bg-blue-600 text-white shadow-lg font-bold rounded-full p-3 text-center">
                         Continue

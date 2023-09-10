@@ -64,29 +64,29 @@ export default function Itinerary({ itineraryData }) {
                 </div>
                 <div className="flex flex-col">
                     <button onClick={() => setShowDetails(!showDetails)} className={`${showDetails ? "fa-angle-up" : "fa-angle-down"} fa-solid text-4xl text-neutral-500 drop-shadow-lg active:animate-ping mt-4`}></button>
-                    <div className={`flex flex-col gap-4 transition-all duration-300 ease-in-out overflow-hidden ${showDetails ? "max-h-screen" : "max-h-0"}`}>
+                    <div className={`flex flex-col gap-4 ${showDetails ? "max-h-full" : "max-h-0"}`}>
                         <h2 className="text-center text-lg font-bold">ACTIVITIES</h2>
                         <section className="flex items-center justify-start overflow-x-auto gap-8 px-4 pb-4">
                             {!activities && <NoResultsMessage title="No Activities Yet" text="Currently, there are no activities available for this itineray. Check back later for updates!" />}
-                            {activities?.map((each, i) => (
-                                <Activity key={i} activityData={each} />
+                            {activities?.map((acitivity) => (
+                                <Activity key={acitivity._id} activityData={acitivity} />
                             ))}
                         </section>
 
                         <h2 className="text-center text-lg font-bold dark:text-neutral-300">COMMENTS</h2>
-                        <section className="min-h-fit border border-slate-300 dark:border-slate-700 mx-4 mb-4 bg-slate-50 dark:bg-black p-2 xs:p-4 rounded-lg">
+                        <section className=" border border-slate-300 dark:border-slate-700 mx-4 mb-4 bg-slate-50 dark:bg-black p-2 xs:p-4 rounded-lg">
                             <div className="my-auto space-y-4">
                                 <div className="flex items-start gap-4">
                                     <ProfilePhoto className={`${loggedInUser && "border-2 border-blue-600 brightness-125"} w-10 `} url={loggedInUser ? loggedInUser.photo : "https://pbs.twimg.com/media/EvumtCWXEBE0CdF.jpg"} name="Snoopy" />
                                     <form className="grid w-full gap-2">
-                                        <textarea disabled={!loggedInUser} ref={newCommentRef} className="" name="" id="" placeholder="Share your city adventure..."></textarea>
+                                        <textarea disabled={!loggedInUser} ref={newCommentRef} onChange={(e) => ((e.target.style.height = "auto"), (e.target.style.height = e.target.scrollHeight + "px"))} name="newComment" id="newComment" placeholder="Share your city adventure..."></textarea>
                                         <button type="submit" disabled={!loggedInUser} onClick={loggedInUser && submitComment} className="bg-blue-600 disabled:bg-neutral-500 disabled:hover:scale-100 text-neutral-200 justify-self-end w-fit px-8 py-2 rounded-lg fa-solid fa-paper-plane hover:scale-125 duration-150"></button>
                                     </form>
                                 </div>
                                 {[...itineraryData.comments]
                                     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                                    .map((comment, i) => (
-                                        <Comment key={i} comment={comment} comments={itineraryData.comments} />
+                                    .map((comment) => (
+                                        <Comment key={comment._id} comment={comment} comments={itineraryData.comments} />
                                     ))}
                             </div>
                         </section>

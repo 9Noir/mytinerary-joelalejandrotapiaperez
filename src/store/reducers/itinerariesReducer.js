@@ -5,7 +5,7 @@ const initialState = { itineraries: null, popular: null }; // Array de itinerari
 const itinerariesReducer = createReducer(initialState, (builder) =>
     builder
         .addCase(readItineraries.fulfilled, (state, action) => {
-            state.itineraries = action.payload.itineraries;
+            state.itineraries = action.payload;
             // action.payload.itineraries.foreach((it) => (state.itineraries[it._id] = it));
         })
         .addCase(readPopularItineraries.fulfilled, (state, action) => {

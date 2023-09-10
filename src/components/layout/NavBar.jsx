@@ -45,16 +45,18 @@ export default function NavBar() {
                         <Anchor onClick={() => navbarToggle(true)} to="/cities" className="hover:decoration-slate-300 hover:underline underline-offset-8 decoration-4">
                             Cities
                         </Anchor>
-                        <Anchor onClick={() => navbarToggle(true)} to="/users" className="hover:decoration-slate-300 hover:underline underline-offset-8 decoration-4">
-                            Users
-                        </Anchor>
 
                         {user ? (
-                            <div className="flex gap-4 items-center">
-                                <ProfilePhoto className="w-7" url={user.photo} name={user.name} />
-                                <p className="max-sm:hidden">{user.name}</p>
-                                <button title="Logout" onClick={() => localStorage.token && dispatch(signout())} className="hover:scale-110 duration-200 active:animate-ping drop-shadow-lg fa-solid fa-right-to-bracket"></button>
-                            </div>
+                            <>
+                                <Anchor onClick={() => navbarToggle(true)} to="/users" className="hover:decoration-slate-300 hover:underline underline-offset-8 decoration-4">
+                                    Users
+                                </Anchor>
+                                <Anchor onClick={() => navbarToggle(true)} to="/account" className="flex gap-4 items-center">
+                                    <ProfilePhoto className="w-7" url={user.photo} name={user.name} />
+                                    <p className="max-sm:hidden">{user.name}</p>
+                                </Anchor>
+                                <button title="Logout" onClick={() => localStorage.token && dispatch(signout())} className="!px-0 hover:scale-110 duration-200 active:animate-ping drop-shadow-lg fa-solid fa-right-to-bracket"></button>
+                            </>
                         ) : (
                             <Button className="px-5 !py-2" to="/signin">
                                 <i className="fa-solid fa-user pr-2"></i>Login

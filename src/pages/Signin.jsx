@@ -1,16 +1,13 @@
-import { Link as Anchor } from "react-router-dom";
-import Button from "../components/Button";
+import { Link as Anchor, Navigate } from "react-router-dom";
 import BgImg from "../components/BgImg";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../store/actions/authActions";
-import { Navigate } from "react-router-dom";
 
 export default function Signin() {
     const user = useSelector((store) => store.auth.user);
     const dispatch = useDispatch();
     if (user) return <Navigate to="/cities" />;
-    
+
     function handleSubmit(e) {
         e.preventDefault();
         const formData = new FormData(event.target);
@@ -25,7 +22,7 @@ export default function Signin() {
     return (
         <>
             <BgImg url={"./img/login.jpg"} />
-            <main className="mb-0 lg:flex-row flex-wrap w-full justify-between max-lg:justify-center items-center min-h-screen">
+            <main className="mb-0 max-xs:px-0 lg:flex-row flex-wrap w-full justify-between max-lg:justify-center items-center min-h-screen">
                 <h1 className="max-lg:mb-8 text-6xl font-bold text-center text-neutral-100">My Tinerary</h1>
                 <form onSubmit={handleSubmit} className="max-w-md w-full bg-slate-100 dark:bg-black p-4 xs:p-10 flex flex-col gap-4 text-black rounded-lg shadow-lg">
                     <p className="text-neutral-400 text-xs">Step 1 of 2</p>
@@ -40,13 +37,13 @@ export default function Signin() {
                         <label htmlFor="email" className="text-neutral-400 text-sm">
                             Email
                         </label>
-                        <input type="email" name="email" id="email" autoComplete="email" required/>
+                        <input placeholder="example@email.com" type="email" name="email" id="email" autoComplete="email" required />
                     </div>
                     <div className="flex flex-col mb-4">
                         <label htmlFor="password" className="text-neutral-400 text-sm">
                             Password
                         </label>
-                        <input type="password" name="password" id="password" autoComplete="current-password" required/>
+                        <input placeholder="Your password" min={6} type="password" name="password" id="password" autoComplete="current-password" required />
                     </div>
                     <button type="submit" className="hover:bg-blue-500 active:animate-ping transition ease-in-out duration-300 bg-blue-600 text-white shadow-lg font-bold rounded-full p-3 text-center">
                         Continue
