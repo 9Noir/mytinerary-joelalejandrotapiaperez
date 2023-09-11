@@ -37,3 +37,12 @@ export const tokenSignin = createAsyncThunk("tokenSignin", async () => {
     const data = await axios.post(apiUrl + "/auth/token", null, authorization).then((res) => res.data.response);
     return data;
 });
+export const userUpdate = createAsyncThunk("userUpdate", async (obj) => {
+    try {
+        const authorization = { headers: { Authorization: `Bearer ${localStorage.token}` } };
+        const data = await axios.put(apiUrl + "/auth/userUpdate", obj, authorization).then((res) => res.data);
+        return data;
+    } catch (error) {
+        throw error.response.data;
+    }
+});

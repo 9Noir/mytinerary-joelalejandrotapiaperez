@@ -16,6 +16,10 @@ export default function (messageCode, data = null) {
             title: "Registration complete!",
             paragraph: "Registration successful. Log in and explore!",
         },
+        USER_UPDATE_SUCCESS: {
+            title: "Profile Updated!",
+            paragraph: "Your profile information has been successfully updated.",
+        },
         // LOGIN_SUCCESS: {
         //     title: "Login Successful",
         //     paragraph: "You have successfully logged in to your account.",

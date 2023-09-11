@@ -76,8 +76,8 @@ export default function Itinerary({ itineraryData }) {
                         <h2 className="text-center text-lg font-bold dark:text-neutral-300">COMMENTS</h2>
                         <section className=" border border-slate-300 dark:border-slate-700 mx-4 mb-4 bg-slate-50 dark:bg-black p-2 xs:p-4 rounded-lg">
                             <div className="my-auto space-y-4">
-                                <div className="flex items-start gap-4">
-                                    <ProfilePhoto className={`${loggedInUser && "border-2 border-blue-600 brightness-125"} w-10 `} url={loggedInUser ? loggedInUser.photo : "https://pbs.twimg.com/media/EvumtCWXEBE0CdF.jpg"} name="Snoopy" />
+                                <div className="flex items-start gap-2">
+                                    <ProfilePhoto className={`${loggedInUser && "border-2 border-blue-600 brightness-125"} w-8 xs:w-10`} url={loggedInUser ? loggedInUser.photo : "https://pbs.twimg.com/media/EvumtCWXEBE0CdF.jpg"} name="Snoopy" />
                                     <form className="grid w-full gap-2">
                                         <textarea disabled={!loggedInUser} ref={newCommentRef} onChange={(e) => ((e.target.style.height = "auto"), (e.target.style.height = e.target.scrollHeight + "px"))} name="newComment" id="newComment" placeholder="Share your city adventure..."></textarea>
                                         <button type="submit" disabled={!loggedInUser} onClick={loggedInUser && submitComment} className="bg-blue-600 disabled:bg-neutral-500 disabled:hover:scale-100 text-neutral-200 justify-self-end w-fit px-8 py-2 rounded-lg fa-solid fa-paper-plane hover:scale-125 duration-150"></button>

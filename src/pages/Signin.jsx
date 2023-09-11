@@ -6,7 +6,6 @@ import { signin } from "../store/actions/authActions";
 export default function Signin() {
     const user = useSelector((store) => store.auth.user);
     const dispatch = useDispatch();
-    if (user) return <Navigate to="/cities" />;
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -19,10 +18,12 @@ export default function Signin() {
         dispatch(signin(data));
     }
 
-    return (
+    return user ? (
+        <Navigate to="/cities" />
+    ) : (
         <>
             <BgImg url={"./img/login.jpg"} />
-            <main className="mb-0 max-xs:px-0 lg:flex-row flex-wrap w-full justify-between max-lg:justify-center items-center min-h-screen">
+            <main className="mb-0 max-xs:px-0 max-sm:my-20 lg:flex-row flex-wrap w-full justify-between max-lg:justify-center items-center min-h-screen">
                 <h1 className="max-lg:mb-8 text-6xl font-bold text-center text-neutral-100">My Tinerary</h1>
                 <form onSubmit={handleSubmit} className="max-w-md w-full bg-slate-100 dark:bg-black p-4 xs:p-10 flex flex-col gap-4 text-black rounded-lg shadow-lg">
                     <p className="text-neutral-400 text-xs">Step 1 of 2</p>

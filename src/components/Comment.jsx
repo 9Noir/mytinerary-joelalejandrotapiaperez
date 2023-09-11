@@ -30,7 +30,7 @@ export default function Comment({ comment, comments }) {
                 </div>
                 {showEdit ? (
                     <form onSubmit={handleSubmit} className="relative">
-                        <textarea ref={newCommentRef} placeholder="Share your city adventure..." defaultValue={comment.content}></textarea>
+                        <textarea ref={newCommentRef} placeholder="Share your city adventure..." defaultValue={comment.content} onChange={(e) => ((e.target.style.height = "auto"), (e.target.style.height = e.target.scrollHeight + "px"))}></textarea>
                         <button type="submit" className="-inset-y-4 right-2 text-xl absolute fa-solid fa-paper-plane hover:scale-125 duration-150"></button>
                     </form>
                 ) : (

@@ -3,8 +3,9 @@ import axios from "axios";
 import apiUrl from "../../apiUrl";
 
 async function fetchData(url) {
+    const authorization = { headers: { Authorization: `Bearer ${localStorage.token}` } };
     return await axios
-        .get(apiUrl + url)
+        .get(apiUrl + url, authorization || null)
         .then((res) => res.data.response)
         .catch((err) => null);
 }

@@ -16,10 +16,6 @@ export default function NotificationBox() {
             <div className="">
                 <h2 className="text-xl font-bold">{messageContent.title}</h2>
                 <p>{messageContent.paragraph}</p>
-                {/* <h2 className="text-2xl font-bold">Successful Login!</h2>
-                <p className="text-lg">
-                    Welcome back, <span className="font-bold">{user.name}</span>! You're in.
-                </p> */}
             </div>
             <div className={`animate-decrease bg-neutral-300 h-2 w-0 absolute bottom-0 right-0`}></div>
         </div>

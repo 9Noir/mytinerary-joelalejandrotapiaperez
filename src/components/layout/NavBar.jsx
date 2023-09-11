@@ -52,13 +52,19 @@ export default function NavBar() {
                                     Users
                                 </Anchor>
                                 <Anchor onClick={() => navbarToggle(true)} to="/account" className="flex gap-4 items-center">
-                                    <ProfilePhoto className="w-7" url={user.photo} name={user.name} />
-                                    <p className="max-sm:hidden">{user.name}</p>
+                                    <ProfilePhoto className="w-7 max-sm:order-2" url={user.photo} name={user.name} />
+                                    <p className="max-sm:order-1">{user.name}</p>
                                 </Anchor>
-                                <button title="Logout" onClick={() => localStorage.token && dispatch(signout())} className="!px-0 hover:scale-110 duration-200 active:animate-ping drop-shadow-lg fa-solid fa-right-to-bracket"></button>
+                                <button
+                                    title="Logout"
+                                    onClick={() => {
+                                        navbarToggle(true);
+                                        localStorage.token && dispatch(signout());
+                                    }}
+                                    className="sm:!px-0 sm:hover:scale-110 duration-200 active:animate-ping drop-shadow-lg fa-solid fa-right-to-bracket text-left"></button>
                             </>
                         ) : (
-                            <Button className="px-5 !py-2" to="/signin">
+                            <Button onClick={() => navbarToggle(true)} className="px-5 !py-2" to="/signin">
                                 <i className="fa-solid fa-user pr-2"></i>Login
                             </Button>
                         )}

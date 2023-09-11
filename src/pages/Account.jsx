@@ -4,15 +4,13 @@ import BgImg from "../components/BgImg";
 import { useDispatch, useSelector } from "react-redux";
 import { readLikes, readComments, readUserItineraries } from "../store/actions/usersActions";
 import PopularTineraryCard from "../components/PopularTineraryCard";
+import UserProfileCard from "../components/UserProfileCard";
+import UserUpdateForm from "../components/UserUpdateForm";
 
 export default function Account() {
-    const user = useSelector((store) => store.auth.user);
-    if (!user) return <Navigate to="/signin" />;
-
     const dispatch = useDispatch();
-    const likes = useSelector((store) => store.users.likes);
-    const comments = useSelector((store) => store.users.comments);
-    const itineraries = useSelector((store) => store.users.itineraries);
+    const user = useSelector((store) => store.auth.user);
+    const { likes, comments, itineraries } = useSelector((store) => store.users);
 
     useEffect(() => {
         dispatch(readLikes(user._id));
@@ -20,22 +18,32 @@ export default function Account() {
         dispatch(readUserItineraries(user._id));
     }, []);
 
-    return (
+    return !user ? (
+        <Navigate to="/signin" />
+    ) : (
         <>
-            <BgImg className="!h-1/4" url={"./img/account.jpg"}></BgImg>
+            <BgImg className="" url={"./img/account.jpg"}></BgImg>
+            <section className="h-screen flex text-neutral-100">
+                <div className="m-auto w-80 relative">
+                    <h1 className="text-2xl xs:text-4xl font-bold text-center py-8">My Account</h1>
+                    <div className="relative text-black rounded-lg shadow-lg">
+                        <label htmlFor="edit" className="absolute -top-20 text-neutral-100 p-4 text-2xl fa-solid fa-pen-to-square active:animate-ping"></label>
+                        <input id="edit" type="checkbox" className="hidden peer" />
+                        <UserProfileCard user={user} likes={likes?.length || 0} comments={comments?.length || 0} itineraries={itineraries?.length || 0} />
+                        <UserUpdateForm user={user} />
+                    </div>
+                </div>
+            </section>
             <main className="dark:text-neutral-300">
-                <section className="h-[25vh] flex justify-center items-center text-neutral-100">
-                    <h1 className="text-4xl font-bold ">My Account</h1>
-                </section>
-                <section>
+                <section id="myActivity">
                     <h2 className="text-2xl">My likes</h2>
                     <div className="flex items-center border-t flex-1 max-h-0 border-neutral-400 my-4"></div>
                     <div className="flex flex-wrap gap-8 group">
                         {likes &&
                             likes.map((like) => (
-                                <Anchor to={"/city/" + like.itinerary_id.city_id} key={like._id} className="grid aspect-square w-24 text-center border border-neutral-300/60 dark:bg-transparent bg-neutral-100 rounded-lg shadow-md overflow-hidden group-hover:brightness-[.85] hover:!filter-none hover:scale-105 duration-200">
+                                <Anchor to={"/city/" + like.itinerary_id.city_id} key={like._id} className="grid aspect-square w-24 text-center dark:bg-white/20 bg-neutral-50 rounded-lg shadow-md overflow-hidden group-hover:brightness-[.85] hover:!filter-none hover:scale-105 duration-200">
                                     <img className="w-full object-cover aspect-video" src={like.itinerary_id.photo} alt="" />
-                                    <p className="p-1 text-sm drop-shadow-lg">{like.itinerary_id.name}</p>
+                                    <p className="p-1 text-sm">{like.itinerary_id.name}</p>
                                 </Anchor>
                             ))}
                     </div>
@@ -47,11 +55,11 @@ export default function Account() {
                     <div className="flex flex-wrap gap-4 xs:gap-8">
                         {comments &&
                             comments.map((comment) => (
-                                <Anchor to={"/city/" + comment.itinerary_id.city_id} key={comment._id} className="flex max-xs:flex-wrap gap-2 w-96 overflow-hidden border border-neutral-300/60 dark:bg-transparent bg-neutral-100 rounded-lg shadow-md hover:scale-105 duration-200">
+                                <Anchor to={"/city/" + comment.itinerary_id.city_id} key={comment._id} className="flex max-xs:flex-wrap gap-2 w-96 overflow-hidden dark:bg-white/20 bg-neutral-50 rounded-lg shadow-md hover:scale-105 duration-200">
                                     <img className="xs:w-36 aspect-video object-cover" src={comment.itinerary_id.photo} alt="" />
                                     <div className="grid p-2">
                                         <h3 className="font-bold">{comment.itinerary_id.name}</h3>
-                                        <p className="italic line-clamp-2">"{comment.content}"</p>
+                                        <p className="line-clamp-2">"{comment.content}"</p>
                                     </div>
                                 </Anchor>
                             ))}
@@ -61,15 +69,7 @@ export default function Account() {
                 <section>
                     <h2 className="text-2xl">My created itineraries</h2>
                     <div className="flex items-center border-t flex-1 max-h-0 border-neutral-400 my-4"></div>
-                    {itineraries &&
-                        itineraries?.map((itinerary) => (
-                            <PopularTineraryCard key={itinerary._id} className={"w-56 aspect-square"} data={itinerary} />
-
-                            // <div key={id} className="grid">
-                            //     <img className="w-20 object-cover aspect-video" src={itinerary.photo} alt="" />
-                            //     <div>{itinerary.name}</div>
-                            // </div>
-                        ))}
+                    <div className="flex flex-wrap gap-4 xs:gap-8"> {itineraries && itineraries?.map((itinerary) => <PopularTineraryCard key={itinerary._id} className={"w-96"} data={itinerary} />)}</div>
                 </section>
             </main>
         </>
