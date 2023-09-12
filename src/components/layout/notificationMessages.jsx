@@ -20,19 +20,15 @@ export default function (messageCode, data = null) {
             title: "Profile Updated!",
             paragraph: "Your profile information has been successfully updated.",
         },
-        // LOGIN_SUCCESS: {
-        //     title: "Login Successful",
-        //     paragraph: "You have successfully logged in to your account.",
-        // },
-        // LOGOUT_SUCCESS: {
-        //     title: "Logout Successful",
-        //     paragraph: "You have successfully logged out of your account.",
-        // },
-        // REGISTER_SUCCESS: {
-        //     title: "Registration Successful",
-        //     paragraph: "Your registration was successful. You can now log in to your account.",
-        // },
         // ERROR
+        Unauthorized: {
+            title: "Unauthorized Access",
+            paragraph: "You don't have permission to access this resource. Please log in or contact support.",
+        },
+        UNAUTHORIZED: {
+            title: "Unauthorized Access",
+            paragraph: "You don't have permission to access this resource. Please log in or contact support.",
+        },
         EMAIL_EXISTS: {
             title: "Email Already Registered",
             paragraph: "This email is already in use. Please use a different email or log in.",

@@ -22,7 +22,6 @@ const router = createBrowserRouter([
             { path: "/signup", element: <Signup /> },
             { path: "/users", element: <Users /> },
             { path: "/account", element: <Account /> },
-            // { path: "/content-management", element: <ContentManagement /> },  // Gestión de Contenido
             { path: "/notfound", element: <NotFound /> },
             { path: "*", element: <Navigate to="/notfound" replace /> },
         ],

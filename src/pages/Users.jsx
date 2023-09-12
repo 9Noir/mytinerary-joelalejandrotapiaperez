@@ -34,9 +34,16 @@ export default function Users() {
                                         <p title={user.country} className="font-light">
                                             {user.country}
                                         </p>
-                                        <a title={user.email} className="text-sm font-medium" href={"mailto:" + user.email}>
-                                            {user.email}
-                                        </a>
+                                        <div className="flex gap-2">
+                                            <button
+                                                onClick={() => {
+                                                    navigator.clipboard.writeText(user.email);
+                                                }}
+                                                className="fa-regular fa-copy"></button>
+                                            <a title={user.email} className="text-sm font-medium" href={"mailto:" + user.email}>
+                                                {user.email}
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="absolute flex items-center inset-y-0 right-0 text-xl text-blue-500 gap-4 p-4">

@@ -1,9 +1,10 @@
-import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 async function fetchData(method, url, data, headers = {}) {
     const options = {
         method: method,
         headers: {
             ...headers,
+            Authorization: `Bearer ${localStorage.token || null}`,
             "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
@@ -26,17 +27,17 @@ export const toggleLike = createAsyncThunk("toggleLike", async (obj) => {
 });
 
 export const createItineraryComment = createAsyncThunk("createItineraryComment", async (newComment) => {
-    const itineraryUpdated = await fetchData("POST", `${import.meta.env.VITE_API_URL}/itineraries/${newComment.itinerary_id}/addcomment`, newComment);
+    const itineraryUpdated = await fetchData("POST", `${import.meta.env.VITE_API_URL}/itineraries/comments/${newComment.itinerary_id}/addcomment`, newComment);
     return itineraryUpdated;
 });
 
 export const deleteItineraryComment = createAsyncThunk("deleteComment", async (obj) => {
-    const itineraryUpdated = await fetchData("DELETE", `${import.meta.env.VITE_API_URL}/itineraries/${obj.itineraryId}/${obj.commentId}`);
+    const itineraryUpdated = await fetchData("DELETE", `${import.meta.env.VITE_API_URL}/itineraries/comments/${obj.itineraryId}/${obj.commentId}`);
     return itineraryUpdated;
 });
 
 export const updateItineraryComment = createAsyncThunk("updateComment", async (comment) => {
-    const itineraryUpdated = await fetchData("PUT", `${import.meta.env.VITE_API_URL}/itineraries/${comment.itinerary_id}/${comment._id}`, comment);
+    const itineraryUpdated = await fetchData("PUT", `${import.meta.env.VITE_API_URL}/itineraries/comments/${comment.itinerary_id}/${comment._id}`, comment);
     return itineraryUpdated;
 });
 

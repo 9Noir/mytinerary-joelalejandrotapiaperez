@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-// Acción asincrónica para leer ciudades desde la API
 async function fetchData(url) {
     return axios
         .get(url)
@@ -14,7 +13,6 @@ async function fetchData(url) {
     // }),
 }
 export const readCities = createAsyncThunk("readCities", async (query = "") => {
-    console.log(import.meta.env.VITE_API_URL)
     return {
         cities: await fetchData(import.meta.env.VITE_API_URL + "/cities?" + query),
     };

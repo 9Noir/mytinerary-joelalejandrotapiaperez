@@ -7,7 +7,6 @@ export const auth = createAction("auth", (user) => {
         payload: user, // El objeto de usuario que se envía al reducer
     };
 });
-
 export const signup = createAsyncThunk("signup", async (obj) => {
     try {
         const data = await axios.post(import.meta.env.VITE_API_URL + "/auth/signup", obj).then((res) => res.data);
@@ -40,6 +39,7 @@ export const userUpdate = createAsyncThunk("userUpdate", async (obj) => {
     try {
         const authorization = { headers: { Authorization: `Bearer ${localStorage.token}` } };
         const data = await axios.put(import.meta.env.VITE_API_URL + "/auth/userUpdate", obj, authorization).then((res) => res.data);
+        localStorage.token = data.token || null;
         return data;
     } catch (error) {
         throw error.response.data;

@@ -7,6 +7,7 @@ export default function NotificationBox() {
     const success = useSelector((store) => store.auth.response.success);
     const user = useSelector((store) => store.auth.user);
     const key = useSelector((store) => store.auth.response.key);
+
     const messageContent = notificationMessages(messageCode,user);
     if (!messageCode) return <></>;
     return (

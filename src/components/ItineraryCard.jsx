@@ -21,7 +21,7 @@ export default function Itinerary({ itineraryData }) {
 
     const foundLikeId = itineraryData.likes.find((like) => like.user_id._id === loggedInUser?._id)?._id || null;
     function handlerLike() {
-        loggedInUser && dispatch(toggleLike({ _id: foundLikeId, user_id: loggedInUser._id, itinerary_id: itineraryData._id }));
+        loggedInUser && dispatch(toggleLike({user_id: loggedInUser._id, itinerary_id: itineraryData._id }));
     }
     function submitComment(e) {
         e.preventDefault();

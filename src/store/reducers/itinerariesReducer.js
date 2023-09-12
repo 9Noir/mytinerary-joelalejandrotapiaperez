@@ -6,14 +6,13 @@ const itinerariesReducer = createReducer(initialState, (builder) =>
     builder
         .addCase(readItineraries.fulfilled, (state, action) => {
             state.itineraries = action.payload;
-            // action.payload.itineraries.foreach((it) => (state.itineraries[it._id] = it));
         })
         .addCase(readPopularItineraries.fulfilled, (state, action) => {
             state.popular = action.payload;
         })
         .addCase(toggleLike.fulfilled, (state, action) => {
-            const { _id, likes } = action.payload;
-            state.itineraries = state.itineraries.map((each) => (each._id === _id ? { ...each, likes } : each));
+            // const { _id, likes } = action.payload;
+            state.itineraries = state.itineraries.map((each) => (each._id === action.payload._id ? action.payload : each));
         })
         .addCase(createItineraryComment.fulfilled, updateItineraryComments)
         .addCase(deleteItineraryComment.fulfilled, updateItineraryComments)

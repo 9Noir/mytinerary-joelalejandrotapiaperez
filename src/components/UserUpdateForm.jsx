@@ -6,7 +6,6 @@ export default function UserUpdateForm({ user }) {
     const dispatch = useDispatch();
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("submit");
         const formData = new FormData(event.target);
         const data = {};
         for (let [name, value] of formData) {
@@ -23,13 +22,13 @@ export default function UserUpdateForm({ user }) {
                     <label htmlFor="name" className="text-neutral-400 text-sm">
                         Name
                     </label>
-                    <input defaultValue={user.name} placeholder="Name" type="name" name="name" id="name" autoComplete="name" required />
+                    <input defaultValue={user.name} placeholder="Name" type="name" name="name" id="name" autoComplete="name" />
                 </div>
                 <div className="flex flex-col">
                     <label htmlFor="lastName" className="text-neutral-400 text-sm">
                         Last Name
                     </label>
-                    <input defaultValue={user.lastName} placeholder="Last name" type="lastName" name="lastName" id="lastName" autoComplete="lastName" required />
+                    <input defaultValue={user.lastName} placeholder="Last name" type="lastName" name="lastName" id="lastName" autoComplete="lastName" />
                 </div>
             </div>
             <div className="flex flex-col">
@@ -42,7 +41,7 @@ export default function UserUpdateForm({ user }) {
                 <label htmlFor="country" className="text-neutral-400 text-sm">
                     Country
                 </label>
-                <select className="p-2" name="country" defaultValue={user.country} id="country" autoComplete="country" required>
+                <select className="p-2" name="country" defaultValue={user.country} id="country" autoComplete="country">
                     <option value="" disabled>
                         Select a country
                     </option>
@@ -57,13 +56,13 @@ export default function UserUpdateForm({ user }) {
                 <label htmlFor="email" className="text-neutral-400 text-sm">
                     Email
                 </label>
-                <input defaultValue={user.email} placeholder="example@email.com" type="email" name="email" id="email" autoComplete="email" pattern="[A-Za-z0-9._+\-']+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$" required />
+                <input defaultValue={user.email} placeholder="example@email.com" type="email" name="email" id="email" autoComplete="email" pattern="[A-Za-z0-9._+\-']+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$" />
             </div>
             <div className="flex flex-col mb-2">
                 <label htmlFor="password" className="text-neutral-400 text-sm">
                     Password
                 </label>
-                <input placeholder="Min 6 characters" minLength={6} type="password" name="password" id="password" required />
+                <input placeholder="Min 6 characters" minLength={6} type="password" name="password" id="password" />
             </div>
             <Button type="submit" className="py-2 sm:pb-1 leading-normal">
                 Update
