@@ -1,11 +1,9 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import apiUrl from "../../apiUrl";
-
 async function fetchData(url) {
     const authorization = { headers: { Authorization: `Bearer ${localStorage.token}` } };
     return await axios
-        .get(apiUrl + url, authorization || null)
+        .get(import.meta.env.VITE_API_URL + url, authorization || null)
         .then((res) => res.data.response)
         .catch((err) => null);
 }
