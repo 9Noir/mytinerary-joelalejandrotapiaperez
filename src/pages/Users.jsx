@@ -15,7 +15,7 @@ export default function Users() {
         dispatch(readUsers());
     }, []);
 
-    return !localStorage.token || loggedInUser.role !== "admin" ? (
+    return !localStorage.token || loggedInUser?.role !== "admin" ? (
         <Navigate to="/cities" />
     ) : (
         <>

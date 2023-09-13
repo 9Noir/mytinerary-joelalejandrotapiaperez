@@ -33,7 +33,7 @@ export default function NavBar() {
     }, []);
 
     return (
-        <header className={`dark:fixed ${showMenu && "bg-slate-400/20 border-b-2 dark:border-none shadow-lg backdrop-blur"} dark:fixed absolute flex w-full top-0 !z-10  text-slate-50 dark:shadow-2xl dark:backdrop-blur dark:bg-black/70 duration-300 rounded-b-2xl overflow-hidden`}>
+        <header className={`dark:fixed ${showMenu && "bg-slate-400/20 border-b-2 dark:border-none rounded-b-2xl shadow-lg backdrop-blur"} dark:fixed absolute flex w-full top-0 !z-10  text-slate-50 dark:shadow-2xl dark:backdrop-blur dark:bg-black/70 duration-300 overflow-hidden`}>
             <div className="w-[1291px] mx-auto flex flex-wrap items-center justify-between px-4 font-bold">
                 <Anchor to="/home" className="text-2xl sm:text-3xl text-center">
                     My Tinerary

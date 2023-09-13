@@ -5,6 +5,7 @@ import { signin, signinStep1 } from "../store/actions/authActions";
 import { useRef, useState } from "react";
 import ProfilePhoto from "../components/ProfilePhoto";
 import Button from "../components/Button";
+import GoogleButton from "../components/GoogleAuth";
 
 export default function Signin() {
     const { user, photo, role } = useSelector((store) => store.auth);
@@ -88,6 +89,7 @@ export default function Signin() {
                                 </svg>
                                 Continue with Facebook
                             </button>
+                            {/* <GoogleButton/> */}
                         </div>
                     </form>
                 </section>
