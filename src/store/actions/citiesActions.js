@@ -5,7 +5,6 @@ async function fetchData(url) {
         .get(url)
         .then((res) => res.data.response)
         .catch((err) => {
-            console.log(err);
             return null;
         });
     // .catch((err) => {

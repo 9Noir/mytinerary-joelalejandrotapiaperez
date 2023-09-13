@@ -25,9 +25,9 @@ export default function Account() {
             <BgImg className="" url={"./img/account.jpg"}></BgImg>
             <section className="h-screen flex text-neutral-100">
                 <div className="m-auto w-80 relative">
-                    <h1 className="text-2xl xs:text-4xl font-bold text-center py-8">My Account</h1>
+                    <h1 className="text-2xl xs:text-4xl font-bold text-center py-4">My Account</h1>
                     <div className="relative text-black rounded-lg shadow-lg">
-                        <label htmlFor="edit" className="absolute -top-20 text-neutral-100 p-4 text-2xl fa-solid fa-pen-to-square active:animate-ping"></label>
+                        <label htmlFor="edit" className="absolute right-0 sm:-right-4 -top-16 text-neutral-100 p-4 text-2xl fa-solid fa-pen-to-square active:animate-ping"></label>
                         <input id="edit" type="checkbox" className="hidden peer" />
                         <UserProfileCard user={user} likes={likes?.length || 0} comments={comments?.length || 0} itineraries={itineraries?.length || 0} />
                         <UserUpdateForm user={user} />

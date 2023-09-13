@@ -7,7 +7,7 @@ export default function UserProfileCard({ user, likes, comments, itineraries }) 
                 <div className="bg-white/20 backdrop-blur-md dark:bg-black/30 h-36"></div>
                 <div className="bg-neutral-50 dark:bg-black dark:text-neutral-200 flex flex-col">
                     <ProfilePhoto className="w-40 mx-auto -translate-y-20" url={user.photo} />
-                    <div className="-mt-20 grid pb-4">
+                    <div className="-mt-16 grid pb-4">
                         <h2 className="capitalize text-center text-xl font-medium">
                             {user.name} {user.lastName}
                         </h2>

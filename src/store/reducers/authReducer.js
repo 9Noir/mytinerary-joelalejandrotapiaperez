@@ -1,14 +1,13 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { auth, signin, signout, signup, tokenSignin, userUpdate } from "../actions/authActions";
+import { auth, signin, signinStep1, signout, signup, signupStep1, tokenSignin, userUpdate } from "../actions/authActions";
 
-const initialState = { user: null, token: null, isLoggedIn: false, likes: null, response: { success: null, message: null, key: null } };
+const initialState = { user: null, token: null, likes: null, response: { success: null, message: null, key: null }, photo: null, role: null };
 export const authReducer = createReducer(initialState, (builder) =>
     builder
         .addCase(auth, (state, action) => {
             return {
                 ...state,
                 user: action.payload,
-                isLoggedIn: true,
                 response: {
                     success: true,
                     message: action.payload ? "LOGIN_SUCCESS" : "LOGOUT_SUCCESS",
@@ -20,11 +19,18 @@ export const authReducer = createReducer(initialState, (builder) =>
             state.response = action.payload;
             state.response.key = Date.now();
         })
+        .addCase(signupStep1.fulfilled, (state, action) => ({
+            ...state,
+            response: {
+                success: action.payload.success,
+                message: action.payload.message,
+                key: Date.now(),
+            },
+        }))
         .addCase(signin.fulfilled, (state, action) => ({
             ...state,
             user: action.payload.response?.user,
             token: action.payload.response?.token,
-            isLoggedIn: true,
             response: {
                 success: action.payload.success,
                 message: action.payload.message,
@@ -33,6 +39,16 @@ export const authReducer = createReducer(initialState, (builder) =>
         }))
         .addCase(signin.rejected, (state, action) => ({
             ...state,
+            response: {
+                success: false,
+                message: action.error.message,
+                key: Date.now(),
+            },
+        }))
+        .addCase(signinStep1.fulfilled, (state, action) => ({
+            ...state,
+            photo: action.payload.photo,
+            role: action.payload.role, //action.payload.response?.role,
             response: {
                 success: action.payload.success,
                 message: action.payload.message,
@@ -43,7 +59,6 @@ export const authReducer = createReducer(initialState, (builder) =>
             ...state,
             user: null,
             token: null,
-            isLoggedIn: false,
             response: {
                 success: action.payload.success,
                 message: action.payload.message,
@@ -52,7 +67,7 @@ export const authReducer = createReducer(initialState, (builder) =>
         }))
         .addCase(tokenSignin.fulfilled, (state, action) => {
             const { user, token } = action.payload;
-            return { ...state, user: user, token: token, isLoggedIn: true };
+            return { ...state, user: user, token: token };
         })
         .addCase(userUpdate.fulfilled, (state, action) => ({
             ...state,

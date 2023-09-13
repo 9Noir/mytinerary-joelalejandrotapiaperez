@@ -45,3 +45,19 @@ export const userUpdate = createAsyncThunk("userUpdate", async (obj) => {
         throw error.response.data;
     }
 });
+export const signupStep1 = createAsyncThunk("signupStep1", async (obj) => {
+    try {
+        const data = await axios.post(import.meta.env.VITE_API_URL + "/auth/signup/step1", obj).then((res) => res.data);
+        return data;
+    } catch (error) {
+        return error.response.data;
+    }
+});
+export const signinStep1 = createAsyncThunk("signinStep1", async (obj) => {
+    try {
+        const data = await axios.post(import.meta.env.VITE_API_URL + "/auth/signin/step1", obj).then((res) => res.data);
+        return data;
+    } catch (error) {
+        return error.response.data;
+    }
+});
