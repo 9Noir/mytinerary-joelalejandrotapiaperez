@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { auth, signin, signinStep1, signout, signup, signupStep1, tokenSignin, userUpdate } from "../actions/authActions";
+import { auth, signin, signinGoogle, signinStep1, signout, signup, signupStep1, tokenSignin, userUpdate } from "../actions/authActions";
 
 const initialState = { user: null, token: null, likes: null, response: { success: null, message: null, key: null }, photo: null, role: null };
 export const authReducer = createReducer(initialState, (builder) =>
@@ -21,6 +21,16 @@ export const authReducer = createReducer(initialState, (builder) =>
         })
         .addCase(signupStep1.fulfilled, (state, action) => ({
             ...state,
+            response: {
+                success: action.payload.success,
+                message: action.payload.message,
+                key: Date.now(),
+            },
+        }))
+        .addCase(signinGoogle.fulfilled, (state, action) => ({
+            ...state,
+            user: action.payload.response?.user,
+            token: action.payload.response?.token,
             response: {
                 success: action.payload.success,
                 message: action.payload.message,

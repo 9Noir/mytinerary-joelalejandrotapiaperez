@@ -24,6 +24,15 @@ export const signin = createAsyncThunk("signin", async (obj) => {
         return error.response.data;
     }
 });
+export const signinGoogle = createAsyncThunk("signinGoogle", async (obj) => {
+    try {
+        const data = await axios.post(import.meta.env.VITE_API_URL + "/auth/google", obj).then((res) => res.data);
+        localStorage.token = data.response.token || null;
+        return data;
+    } catch (error) {
+        return error.response.data;
+    }
+});
 export const signout = createAsyncThunk("signout", async (obj) => {
     const authorization = { headers: { Authorization: `Bearer ${localStorage.token}` } };
     const data = await axios.post(import.meta.env.VITE_API_URL + "/auth/signout", null, authorization).then((res) => res.data);
