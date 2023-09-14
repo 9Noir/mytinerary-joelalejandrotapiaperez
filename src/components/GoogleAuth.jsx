@@ -15,6 +15,7 @@ export default function GoogleSignIn() {
         const initializeGoogleSignIn = () => {
             window.google.accounts.id.initialize({
                 client_id: import.meta.env.VITE_GOOGLE_ID,
+                // ux_mode: "popup",
                 callback: handleCredentialResponse,
             });
 
@@ -31,11 +32,11 @@ export default function GoogleSignIn() {
             });
         };
 
-        window.addEventListener("load", initializeGoogleSignIn);
+        let timer;
+        const checkAndInitialize = () => (window.google ? initializeGoogleSignIn() : (timer = setTimeout(checkAndInitialize, 100)));
+        checkAndInitialize();
 
-        return () => {
-            window.removeEventListener("load", initializeGoogleSignIn);
-        };
+        if (timer) return clearTimeout(timer);
     }, []);
 
     // Función para crear el wrapper
