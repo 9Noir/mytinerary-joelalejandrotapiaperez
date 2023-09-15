@@ -8,20 +8,25 @@ import Button from "../components/Button";
 import GoogleButton from "../components/GoogleAuth";
 
 export default function Signup() {
-    const {response,user} = useSelector((store) => store.auth);
+    const { response, user } = useSelector((store) => store.auth);
     const [isEmailVerified, setisEmailVerified] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     function handleSubmit(e) {
         e.preventDefault();
+        setIsLoading(true);
         const formData = new FormData(event.target);
         const data = {};
         for (let [name, value] of formData) {
             if (value) data[name] = value;
         }
         if (isEmailVerified) {
-            dispatch(signup(data));
+            dispatch(signup(data)).then(setIsLoading(false));
         } else {
-            dispatch(signupStep1(data)).then((res) => setisEmailVerified(res.payload.success));
+            dispatch(signupStep1(data)).then((res) => {
+                setisEmailVerified(res.payload.success);
+                setIsLoading(false);
+            });
         }
     }
     if (response.message == "REGISTER_SUCCESS") return <Navigate to="/signin" />;
@@ -35,7 +40,6 @@ export default function Signup() {
                     <h1 className="max-lg:mb-8 text-6xl font-bold text-center text-neutral-100 hidden lg:flex">My Tinerary</h1>
                     <div className="z-10 max-w-md w-full bg-slate-100 dark:bg-black text-black rounded-lg shadow-lg p-4 xs:p-10">
                         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                            {" "}
                             <p className="text-neutral-400 text-xs">Step {isEmailVerified ? "2" : "1"} of 2</p>
                             <h1 className="text-2xl text-neutral-700 font-bold dark:text-neutral-300">Create account</h1>
                             <div className="flex items-center text-xs">
@@ -99,8 +103,11 @@ export default function Signup() {
                                 <Button onClick={() => setisEmailVerified(false)} className={"bg-neutral-300 dark:bg-transparent dark:hover:brightness-150 dark:border border-neutral-400 !rounded-full " + (!isEmailVerified && "hidden")}>
                                     Back
                                 </Button>
-                                <Button type="submit" className="!rounded-full sm:col-start-2">
+                                <Button type="submit" className="!rounded-full row-start-1 sm:col-start-2 relative grid" disabled={isLoading}>
                                     Continue
+                                    <svg className={`${!isLoading && "hidden"} absolute inset-y-0  right-5 animate-spin w-5 aspect-square`} xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 512 512">
+                                        <path fill="currentColor" d="M222.7 32.1c5 16.9-4.6 34.8-21.5 39.8C121.8 95.6 64 169.1 64 256c0 106 86 192 192 192s192-86 192-192c0-86.9-57.8-160.4-137.1-184.1c-16.9-5-26.6-22.9-21.5-39.8s22.9-26.6 39.8-21.5C434.9 42.1 512 140 512 256c0 141.4-114.6 256-256 256S0 397.4 0 256C0 140 77.1 42.1 182.9 10.6c16.9-5 34.8 4.6 39.8 21.5z" />
+                                    </svg>
                                 </Button>
                             </div>
                         </form>
