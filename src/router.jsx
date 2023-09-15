@@ -1,13 +1,13 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import MainLayout from "./layouts/MainLayout";
-import React from "react";
 import NotFound from "./pages/NotFound";
 import Cities from "./pages/Cities";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import City from "./pages/City";
 import Users from "./pages/Users";
+import Account from "./pages/Account";
 
 const router = createBrowserRouter([
     {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
             { path: "/signin", element: <Signin /> },
             { path: "/signup", element: <Signup /> },
             { path: "/users", element: <Users /> },
-            // { path: "/content-management", element: <ContentManagement /> },  // Gestión de Contenido
+            { path: "/account", element: <Account /> },
             { path: "/notfound", element: <NotFound /> },
             { path: "*", element: <Navigate to="/notfound" replace /> },
         ],

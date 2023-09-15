@@ -1,14 +1,18 @@
 import { RouterProvider } from "react-router-dom";
 import router from "./router";
-import { Provider } from "react-redux";
-import store from "./store/store";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { tokenSignin } from "./store/actions/authActions";
 
 function App() {
-    return (
-        <Provider store={store}>
-            <RouterProvider router={router} />
-        </Provider>
-    );
+    const dispatch = useDispatch();
+    const [isAuthReady, setIsAuthReady] = useState(false);
+
+    useEffect(() => {
+        localStorage.token ? dispatch(tokenSignin()).then(() => setIsAuthReady(true)) : setIsAuthReady(true);
+    }, [isAuthReady]);
+    
+    return !isAuthReady ? null : <RouterProvider router={router} />;
 }
 
 export default App;

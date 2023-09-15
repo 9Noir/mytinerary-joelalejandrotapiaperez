@@ -13,8 +13,11 @@
     #root {
         @apply w-full min-h-screen flex flex-col bg-slate-200 dark:bg-black -z-10 [&>*]:z-0 duration-500;
     }
+    .nav-link {
+        @apply md:[&>*]:p-4 hover:decoration-slate-300 hover:underline underline-offset-8 decoration-4;
+    }
     main {
-        @apply max-w-[1291px] grow justify-center px-4 mb-4 flex flex-col gap-4 mx-auto w-full;
+        @apply max-w-[1291px] grow justify-center px-4 py-8 flex flex-col gap-8 mx-auto w-full;
     }
     .itinerary-details {
         @apply flex flex-col gap-2;
@@ -25,20 +28,12 @@
     .itinerary-details {
         @apply font-medium text-neutral-500;
     }
+    label {
+        @apply mb-2;
+    }
     input,
-    textarea {
-        @apply w-full outline-none dark:text-neutral-300 bg-slate-200/60 dark:bg-slate-600 focus:ring-blue-600 ring-2 ring-transparent p-4 rounded-lg shadow-md
-        /* @apply py-2 px-2 rounded-lg bg-blue-100/50 text-slate-900/70 shadow-md focus:border focus:border-blue-600 dark:bg-slate-600 dark:text-slate-50/70 placeholder:dark:text-slate-50/80 [&>*]:dark:bg-slate-600; */
-        /* @apply dark:bg-slate-600 dark:text-neutral-300 outline-none focus:ring-blue-600 ring-2 ring-transparent w-full px-6 py-4 */
-        /* @apply py-2 px-2 rounded-lg text-slate-900/70 shadow-md outline-4 outline-blue-500 dark:bg-slate-600 dark:text-slate-50/70 placeholder:dark:text-slate-50/80 [&>*]:dark:bg-slate-600; */
-        /* @apply py-2 px-2 rounded-lg text-slate-900/70 shadow-md outline-4 outline-blue-500 dark:bg-slate-600 dark:text-slate-50/70 placeholder:dark:text-slate-50/80 [&>*]:dark:bg-slate-600; */;
+    textarea,
+    select {
+        @apply w-full outline-none dark:text-neutral-300 bg-slate-200/60 dark:bg-slate-600 focus:ring-blue-600 ring-2 ring-transparent p-4 rounded-lg shadow-md;
     }
 }
-
-/* .title-itinerary-details {
--itinerary-details {
-        @apply text-lg font-medium;
-    }
-    .p-itinerary-details {
-        @apply text-sm font-medium text-neutral-500;
-    } */

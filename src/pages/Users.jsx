@@ -1,59 +1,75 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { readUsers } from "../store/actions/usersActions";
-
+import { readUsers, clearUserData } from "../store/actions/usersActions";
 import ProfilePhoto from "../components/ProfilePhoto";
-import { auth, readLikes } from "../store/actions/authActions";
+import { auth } from "../store/actions/authActions";
+import { Navigate } from "react-router-dom";
+import { Link as Anchor } from "react-router-dom";
+import BgImg from "../components/BgImg";
 
 export default function Users() {
     const dispatch = useDispatch();
-    const { isLoggedIn } = useSelector((store) => store.auth);
     const loggedInUser = useSelector((store) => store.auth.user);
     const users = useSelector((store) => store.users.all);
-    const likes = useSelector((store) => store.auth.likes);
-
     useEffect(() => {
         dispatch(readUsers());
     }, []);
 
-    return (
+    return !localStorage.token || loggedInUser?.role !== "admin" ? (
+        <Navigate to="/cities" />
+    ) : (
         <>
-            <div className="w-full py-9 bg-slate-600 shadow-lg"></div>
+            <BgImg className="!h-[50vh] object-bottom" url="../img/users.jpg" />
+            <section className="h-[50vh] flex flex-col justify-center text-center text-neutral-100">
+                <div className="max-w-[1291px] m-auto">
+                    <h1 className="text-4xl font-bold mb-4">Users</h1>
+                    <p className="text-2xl max-w-sm">Discover our community members. Explore their profiles and interests.</p>
+                </div>
+            </section>
+
             <main className="max-w-full flex-row items-start dark:text-neutral-300">
                 <div className="flex flex-wrap justify-center gap-4 overflow-hidden py-8">
                     {users &&
                         users.map((user, id) => (
-                            <div key={id} className={`${loggedInUser?.mail == user.mail ? "!bg-blue-300 dark:!bg-blue-700/80" : ""} border-blue-600 w-80 hover:scale-105 duration-200 group relative border overflow-hidden  gap-4 bg-neutral-50 dark:bg-white/20 rounded-lg shadow-md`}>
-                                {/* <div className="group-hover:flex justify-center hidden inset-0 text-5xl absolute bg-slate-100">
-                                    <button className="fa-solid fa-pen-to-square text-blue-600"></button>
-                                </div> */}
+                            <div key={id} className={`${loggedInUser?.email == user.email && "bg-gradient-to-tl from-blue-700 to-blue-500 text-neutral-200 "} w-80 hover:scale-105 duration-200 group relative overflow-hidden  gap-4 bg-neutral-50 dark:bg-white/20 rounded-lg shadow-md`}>
                                 <div className="flex items-center w-full gap-4 p-4">
-                                    <ProfilePhoto className="w-10 sm:w-20" url={user.photo} name={user.name} />
+                                    <div className="relative flex">
+                                        <ProfilePhoto className="w-10 sm:w-20" url={user.photo} name={user.name} />
+                                        <div className="absolute w-full -bottom-6 sm:-bottom-2 flex">
+                                            <p className={`${user.role == "admin" ? "bg-red-600" : "bg-blue-600"} mx-auto capitalize text-white font-medium px-2 py-1 text-[0.5rem] sm:text-xs rounded-full`}>{user.role}</p>
+                                        </div>
+                                    </div>
                                     <div className="grid overflow-clip">
-                                        <h2 title={user.lastName.toUpperCase() + ", " + user.name} className="flex font-bold max-w-[10rem] pr-5 whitespace-nowrap overflow-hidden">
+                                        <h2 title={user.lastName.toUpperCase() + ", " + user.name} className="flex font-bold max-w-[10rem] pr-5 whitespace-nowrap truncate">
                                             {user.lastName.toUpperCase() + ", " + user.name}
                                         </h2>
                                         <p title={user.country} className="font-light">
                                             {user.country}
                                         </p>
-                                        <a title={user.mail} className="text-sm font-medium" href={"mailto:" + user.mail}>
-                                            {user.mail}
-                                        </a>
+                                        <div className="flex gap-2">
+                                            <button
+                                                onClick={() => {
+                                                    navigator.clipboard.writeText(user.email);
+                                                }}
+                                                className="fa-regular fa-copy"></button>
+                                            <a title={user.email} className="text-sm font-medium" href={"mailto:" + user.email}>
+                                                {user.email}
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div className="absolute flex inset-y-0 right-0 text-xl text-blue-500 gap-4 p-4">
-                                    {loggedInUser?.mail == user.mail && isLoggedIn ? (
-                                        <button onClick={() => dispatch(auth(null))} title="Login" className="fa-solid fa-user-minus text-red-400"></button>
+                                <div className="absolute flex items-center inset-y-0 right-0 text-xl text-blue-500 gap-4 p-4">
+                                    {loggedInUser?.email == user.email ? (
+                                        <button onClick={() => (dispatch(clearUserData()), dispatch(auth(null)))} title="Login" className="fa-solid fa-user-minus text-red-400"></button>
                                     ) : (
                                         <button
                                             onClick={() => {
-                                                dispatch(auth(user)), dispatch(readLikes(user._id));
+                                                user && dispatch(clearUserData()), dispatch(auth(user));
                                             }}
                                             title="Login"
                                             className="fa-solid fa-user"></button>
                                     )}
-                                    <button title="Edit" className="fa-solid fa-pen-to-square"></button>
+                                    <Anchor to="/account" title="View more" className={`${loggedInUser?.email == user.email && "text-neutral-200"} fa-solid fa-eye`}></Anchor>
                                 </div>
                             </div>
                         ))}
@@ -62,10 +78,3 @@ export default function Users() {
         </>
     );
 }
-
-// <div class="min-h-screen flex bg-black">
-//   <div class="m-auto grid w-fit rounded-lg bg-gradient-to-tl from-blue-600 to-blue-500/80 border-2 border-blue-600 p-4 text-neutral-200 shadow-lg duration-500 hover:translate-x-[-100%]">
-//     <h2 class="text-lg font-bold">Successful Login!</h2>
-//     <p class="">Welcome back, [Username]! You're in.</p>
-//   </div>
-// </div>
