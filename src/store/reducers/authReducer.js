@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { auth, signin, signinGoogle, signinStep1, signout, signup, signupStep1, tokenSignin, userUpdate } from "../actions/authActions";
+import { auth, signin, signinGoogle, signinStep1, signout, signup, signupStep1, tokenSignin, userUpdate, sendPasswordRecovery } from "../actions/authActions";
 
 const initialState = { user: null, token: null, likes: null, response: { success: null, message: null, key: null }, photo: null, role: null };
 export const authReducer = createReducer(initialState, (builder) =>
@@ -47,14 +47,6 @@ export const authReducer = createReducer(initialState, (builder) =>
                 key: Date.now(),
             },
         }))
-        .addCase(signin.rejected, (state, action) => ({
-            ...state,
-            response: {
-                success: false,
-                message: action.error.message,
-                key: Date.now(),
-            },
-        }))
         .addCase(signinStep1.fulfilled, (state, action) => ({
             ...state,
             photo: action.payload.photo,
@@ -76,24 +68,28 @@ export const authReducer = createReducer(initialState, (builder) =>
             },
         }))
         .addCase(tokenSignin.fulfilled, (state, action) => {
-            const { user, token } = action.payload;
+            const { user, token } = action.payload.response;
             return { ...state, user: user, token: token };
         })
-        .addCase(userUpdate.fulfilled, (state, action) => ({
+        .addCase(userUpdate.fulfilled, (state, action) => {
+            const user = action.payload.response?.user;
+            const token = action.payload.response?.token;
+            return {
+                ...state,
+                user: user || state.user,
+                token: token || state.token,
+                response: {
+                    success: action.payload.success,
+                    message: action.payload.message,
+                    key: Date.now(),
+                },
+            };
+        })
+        .addCase(sendPasswordRecovery.fulfilled, (state, action) => ({
             ...state,
-            user: action.payload.response,
-            token: action.payload.token,
             response: {
                 success: action.payload.success,
                 message: action.payload.message,
-                key: Date.now(),
-            },
-        }))
-        .addCase(userUpdate.rejected, (state, action) => ({
-            ...state,
-            response: {
-                success: false,
-                message: action.error.message,
                 key: Date.now(),
             },
         }))

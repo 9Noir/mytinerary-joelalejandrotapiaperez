@@ -19,17 +19,11 @@
     main {
         @apply max-w-[1291px] grow justify-center px-4 py-8 flex flex-col gap-8 mx-auto w-full;
     }
-    .itinerary-details {
-        @apply flex flex-col gap-2;
-    }
-    .itinerary-details {
-        @apply text-lg font-medium;
-    }
-    .itinerary-details {
-        @apply font-medium text-neutral-500;
+    .form-section {
+        @apply z-10 max-w-md w-full bg-slate-100 dark:bg-black text-black rounded-lg shadow-lg p-4 xs:p-10;
     }
     label {
-        @apply mb-2;
+        @apply text-neutral-400 text-sm mb-2;
     }
     input,
     textarea,

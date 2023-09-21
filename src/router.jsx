@@ -8,6 +8,7 @@ import Signup from "./pages/Signup";
 import City from "./pages/City";
 import Users from "./pages/Users";
 import Account from "./pages/Account";
+import PasswordRecovery from "./pages/PasswordRecovery";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
             { path: "/signup", element: <Signup /> },
             { path: "/users", element: <Users /> },
             { path: "/account", element: <Account /> },
+            { path: "/password-recovery", element: <PasswordRecovery /> },
             { path: "/notfound", element: <NotFound /> },
             { path: "*", element: <Navigate to="/notfound" replace /> },
         ],

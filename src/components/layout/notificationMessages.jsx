@@ -22,6 +22,10 @@ export default function (messageCode, data = null) {
                 title: "Profile Updated!",
                 paragraph: "Your profile information has been successfully updated.",
             },
+            PASSWORD_RECOVERY_EMAIL_SENT: {
+                title: "Password Recovery Email Sent",
+                paragraph: "Check your inbox for a recovery email and follow the instructions to reset your password.",
+            },
             // ERROR
             Unauthorized: {
                 title: "Unauthorized Access",
@@ -36,12 +40,16 @@ export default function (messageCode, data = null) {
                 paragraph: "This email is already in use. Please use a different email or log in.",
             },
             ERROR_EMAIL_NOT_REGISTERED: {
-                title: "Login Failed",
-                paragraph: "The email address is not registered. Please check your email or sign up.",
+                title: "Email Not Found",
+                paragraph: "Sorry, we couldn't find the email address in our system. Please check your email or sign up.",
             },
             INVALID_CREDENTIALS: {
                 title: "Login Failed",
                 paragraph: "Your credentials are invalid. Please double-check your username and password.",
+            },
+            RECOVERY_EMAIL_FAILURE: {
+                title: "Recovery Email Error",
+                paragraph: "There was an error sending the recovery email. Please try again later or contact support.",
             },
             // SCHEMA
             EMAIL_INVALID_TYPE: {

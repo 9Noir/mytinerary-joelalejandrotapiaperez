@@ -1,72 +1,48 @@
 import { createAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
-export const auth = createAction("auth", (user) => {
-    return {
-        payload: user, // El objeto de usuario que se envía al reducer
+async function fetchData(method, url, data, headers = {}) {
+    const options = {
+        method: method,
+        headers: {
+            ...headers,
+            Authorization: `Bearer ${localStorage.token || null}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
     };
-});
-export const signup = createAsyncThunk("signup", async (obj) => {
-    try {
-        const data = await axios.post(import.meta.env.VITE_API_URL + "/auth/signup", obj).then((res) => res.data);
-        return data;
-    } catch (error) {
-        return error.response.data;
-    }
-});
+    return await fetch(import.meta.env.VITE_API_URL + url, options)
+        .then((res) => res.json())
+        .then((res) => res)
+        .catch((err) => {
+            console.log(err);
+            return err;
+        });
+}
+
+export const auth = createAction("auth", (user) => ({ payload: user }));
+export const signupStep1 = createAsyncThunk("signupStep1", (obj) => fetchData("POST", "/auth/signup/step1", obj));
+export const signup = createAsyncThunk("signup", (obj) => fetchData("POST", "/auth/signup", obj));
+export const signinStep1 = createAsyncThunk("signinStep1", (obj) => fetchData("POST", "/auth/signin/step1", obj));
 export const signin = createAsyncThunk("signin", async (obj) => {
-    try {
-        const data = await axios.post(import.meta.env.VITE_API_URL + "/auth/signin", obj).then((res) => res.data);
-        localStorage.token = data.response.token || null;
-        return data;
-    } catch (error) {
-        return error.response.data;
-    }
+    const data = await fetchData("POST", "/auth/signin", obj);
+    if (data.success) localStorage.token = data.response.token;
+    return data;
 });
+export const tokenSignin = createAsyncThunk("tokenSignin", () => fetchData("POST", "/auth/token"));
 export const signinGoogle = createAsyncThunk("signinGoogle", async (obj) => {
-    try {
-        const data = await axios.post(import.meta.env.VITE_API_URL + "/auth/google", obj).then((res) => res.data);
-        localStorage.token = data.response.token || null;
-        return data;
-    } catch (error) {
-        return error.response.data;
-    }
+    const data = await fetchData("POST", "/auth/google", obj);
+    if (data.success) localStorage.token = data.response.token;
+    return data;
 });
-export const signout = createAsyncThunk("signout", async (obj) => {
-    const authorization = { headers: { Authorization: `Bearer ${localStorage.token}` } };
-    const data = await axios.post(import.meta.env.VITE_API_URL + "/auth/signout", null, authorization).then((res) => res.data);
+export const signout = createAsyncThunk("signout", async () => {
+    const data = await fetchData("POST", "/auth/signout");
     localStorage.removeItem("token");
     return data;
 });
-export const tokenSignin = createAsyncThunk("tokenSignin", async () => {
-    const authorization = { headers: { Authorization: `Bearer ${localStorage.token}` } };
-    const data = await axios.post(import.meta.env.VITE_API_URL + "/auth/token", null, authorization).then((res) => res.data.response);
+export const userUpdate = createAsyncThunk("userUpdate", async (obj) => {
+    const data = await fetchData("PUT", "/auth/userUpdate", obj);
+    if (data.success) localStorage.token = data.response.token;
     return data;
 });
-export const userUpdate = createAsyncThunk("userUpdate", async (obj) => {
-    try {
-        const authorization = { headers: { Authorization: `Bearer ${localStorage.token}` } };
-        const data = await axios.put(import.meta.env.VITE_API_URL + "/auth/userUpdate", obj, authorization).then((res) => res.data);
-        localStorage.token = data.token || null;
-        return data;
-    } catch (error) {
-        throw error.response.data;
-    }
-});
-export const signupStep1 = createAsyncThunk("signupStep1", async (obj) => {
-    try {
-        const data = await axios.post(import.meta.env.VITE_API_URL + "/auth/signup/step1", obj).then((res) => res.data);
-        return data;
-    } catch (error) {
-        return error.response.data;
-    }
-});
-export const signinStep1 = createAsyncThunk("signinStep1", async (obj) => {
-    try {
-        const data = await axios.post(import.meta.env.VITE_API_URL + "/auth/signin/step1", obj).then((res) => res.data);
-        return data;
-    } catch (error) {
-        return error.response.data;
-    }
-});
+export const sendPasswordRecovery = createAsyncThunk("sendPasswordRecovery", (obj) => fetchData("POST", "/auth/password-recovery", obj));

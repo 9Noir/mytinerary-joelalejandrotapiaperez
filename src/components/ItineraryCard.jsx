@@ -12,6 +12,9 @@ export default function Itinerary({ itineraryData }) {
     const [showDetails, setShowDetails] = useState(false);
     const activities = useSelector((store) => store.activities[itineraryData._id]);
     const loggedInUser = useSelector((store) => store.auth.user);
+    const [isLiked, setIsLiked] = useState(itineraryData.likes.some((e) => e.user_id._id == loggedInUser?._id));
+    const [likesCount, setLikesCount] = useState(itineraryData.likes.length);
+
     const dispatch = useDispatch();
     const newCommentRef = useRef(null);
 
@@ -19,9 +22,11 @@ export default function Itinerary({ itineraryData }) {
         dispatch(readActivities(itineraryData._id));
     }, []);
 
-    const foundLikeId = itineraryData.likes.find((like) => like.user_id._id === loggedInUser?._id)?._id || null;
+    // const foundLikeId = itineraryData.likes.find((like) => like.user_id._id === loggedInUser?._id)?._id || null;
     function handlerLike() {
-        loggedInUser && dispatch(toggleLike({user_id: loggedInUser._id, itinerary_id: itineraryData._id }));
+        setLikesCount((prev) => (isLiked ? prev - 1 : prev + 1));
+        setIsLiked((prev) => !prev);
+        loggedInUser && dispatch(toggleLike({ user_id: loggedInUser._id, itinerary_id: itineraryData._id }));
     }
     function submitComment(e) {
         e.preventDefault();
@@ -33,8 +38,8 @@ export default function Itinerary({ itineraryData }) {
         <>
             <div className="relative overflow-hidden w-[min(100%,34rem)] border bg-slate-50 dark:bg-black dark:border dark:border-slate-700 rounded-lg shadow-xl">
                 <div className="absolute left-0 top-0 px-4 py-2 rounded-lg text-2xl gap-2 text-neutral-100 flex bg-neutral-600/50 m-4">
-                    <button onClick={handlerLike} className={` drop-shadow-sm fa-heart active:animate-ping ${!loggedInUser ? "fa-solid" : foundLikeId ? "fa-solid text-red-600" : "fa-regular"}`}></button>
-                    <div className="text-lg leading-none text-center">{itineraryData.likes.length}</div>
+                    <button onClick={handlerLike} className={` drop-shadow-sm fa-heart active:animate-ping ${!loggedInUser ? "fa-solid" : isLiked ? "fa-solid text-red-600" : "fa-regular"}`}></button>
+                    <div className="text-lg leading-none text-center">{likesCount}</div>
                 </div>
                 <img className="w-full aspect-video object-cover" src={itineraryData.photo} alt={`Photo of ${itineraryData.name}`} />
                 <div className="flex p-4 pb-0 gap-4">
