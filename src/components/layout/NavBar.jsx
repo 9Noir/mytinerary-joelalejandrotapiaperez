@@ -35,7 +35,7 @@ export default function NavBar() {
     function handleLogout() {
         setIsLoading(true);
         navbarToggle(true);
-        localStorage.token && dispatch(signout()).then(setIsLoading(false), (document.body.style.overflow = "auto"));
+        localStorage.token && dispatch(signout()).then((res) => setIsLoading(false));
     }
 
     return (

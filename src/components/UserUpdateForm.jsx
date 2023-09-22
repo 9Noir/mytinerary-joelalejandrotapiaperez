@@ -16,7 +16,7 @@ export default function UserUpdateForm({ user }) {
             if (user.email == value) continue;
             if (value) data[name] = value;
         }
-        dispatch(userUpdate(data)).then(setIsLoading(false));
+        dispatch(userUpdate(data)).then(res=>setIsLoading(false));
     }
 
     return (

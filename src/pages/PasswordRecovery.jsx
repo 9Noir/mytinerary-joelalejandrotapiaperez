@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { sendPasswordRecovery, userUpdate } from "../store/actions/authActions";
 import { Navigate } from "react-router-dom";
+import LoadingPage from "../components/LoadingPage";
 
 export default function PasswordRecovery() {
     const dispatch = useDispatch();
@@ -23,10 +24,10 @@ export default function PasswordRecovery() {
         event.preventDefault();
         setIsLoading(true);
         if (!token) {
-            dispatch(sendPasswordRecovery({ email: emailRef.current.value })).then(setIsLoading(false));
+            dispatch(sendPasswordRecovery({ email: emailRef.current.value })).then((res) => setIsLoading(false));
         } else {
             localStorage.token = token;
-            dispatch(userUpdate({ password: passwordRef.current.value })).then(setIsLoading(false));
+            dispatch(userUpdate({ password: passwordRef.current.value })).then((res) => setIsLoading(false));
         }
     }
     if (message == "USER_UPDATE_SUCCESS") return <Navigate to="/cities" />;
@@ -43,15 +44,13 @@ export default function PasswordRecovery() {
                             <input ref={emailRef} type="email" name="email" id="email" autoComplete="email" required />
                             <Button className="w-1/2 mx-auto mt-4 relative" type="submit" disabled={isLoading}>
                                 Send
-                                <svg className={`${!isLoading && "hidden"} absolute inset-y-0  right-5 animate-spin w-5 aspect-square`} xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 512 512">
-                                    <path fill="currentColor" d="M222.7 32.1c5 16.9-4.6 34.8-21.5 39.8C121.8 95.6 64 169.1 64 256c0 106 86 192 192 192s192-86 192-192c0-86.9-57.8-160.4-137.1-184.1c-16.9-5-26.6-22.9-21.5-39.8s22.9-26.6 39.8-21.5C434.9 42.1 512 140 512 256c0 141.4-114.6 256-256 256S0 397.4 0 256C0 140 77.1 42.1 182.9 10.6c16.9-5 34.8 4.6 39.8 21.5z" />
-                                </svg>
                             </Button>
                         </form>
                     </div>
                 ) : (
                     <div className="space-y-4">
                         <h2 className="text-2xl text-neutral-700 font-bold dark:text-neutral-300 text-center">Reset Password</h2>
+                        <p className="text-neutral-600 dark:text-neutral-300"> Please enter your new password below. Your new password must be at least 6 characters long.</p>
                         <form onSubmit={handleForm} className="grid [&_input]:mb-4">
                             <label htmlFor="password">New Password:</label>
                             <input ref={passwordRef} placeholder="Min 6 characters" minLength={6} type="password" name="password" id="password" autoComplete="new-password" required />
@@ -59,14 +58,12 @@ export default function PasswordRecovery() {
                             <input ref={confirmPasswordRef} onChange={handlePasswordsMatch} placeholder="Min 6 characters" minLength={6} type="password" name="confirmPassword" id="confirmPassword" autoComplete="new-password" required />
                             <Button className="w-1/2 mx-auto mt-4" type="submit" disabled={!arePasswordsEqual || isLoading}>
                                 Save Password
-                                <svg className={`${!isLoading && "hidden"} absolute inset-y-0  right-5 animate-spin w-5 aspect-square`} xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 512 512">
-                                    <path fill="currentColor" d="M222.7 32.1c5 16.9-4.6 34.8-21.5 39.8C121.8 95.6 64 169.1 64 256c0 106 86 192 192 192s192-86 192-192c0-86.9-57.8-160.4-137.1-184.1c-16.9-5-26.6-22.9-21.5-39.8s22.9-26.6 39.8-21.5C434.9 42.1 512 140 512 256c0 141.4-114.6 256-256 256S0 397.4 0 256C0 140 77.1 42.1 182.9 10.6c16.9-5 34.8 4.6 39.8 21.5z" />
-                                </svg>
                             </Button>
                         </form>
                     </div>
                 )}
             </section>
+            <LoadingPage isLoading={isLoading} />
         </main>
     );
 }

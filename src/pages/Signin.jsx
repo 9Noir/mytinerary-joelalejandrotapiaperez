@@ -20,7 +20,7 @@ export default function Signin() {
         e.preventDefault();
         setIsLoading(true);
         if (isEmailVerified) {
-            dispatch(signin({ email: emailRef.current.value, password: passwordRef.current.value })).then(setIsLoading(false));
+            dispatch(signin({ email: emailRef.current.value, password: passwordRef.current.value })).then(res=>setIsLoading(false));
         } else {
             dispatch(signinStep1({ email: emailRef.current.value })).then((res) => {
                 setisEmailVerified(res.payload.success);

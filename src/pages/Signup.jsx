@@ -21,7 +21,7 @@ export default function Signup() {
             if (value) data[name] = value;
         }
         if (isEmailVerified) {
-            dispatch(signup(data)).then(setIsLoading(false));
+            dispatch(signup(data)).then((res) => setIsLoading(false));
         } else {
             dispatch(signupStep1(data)).then((res) => {
                 setisEmailVerified(res.payload.success);
@@ -49,43 +49,31 @@ export default function Signup() {
                                 </Anchor>
                             </div>
                             <div className={`flex flex-col ${isEmailVerified && "hidden"}`}>
-                                <label htmlFor="email">
-                                    Email
-                                </label>
+                                <label htmlFor="email">Email</label>
                                 <input placeholder="example@email.com" type="email" name="email" id="email" autoComplete="email" pattern="[A-Za-z0-9._+\-']+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$" required />
                             </div>
                             <div className={`flex flex-col ${isEmailVerified && "hidden"}`}>
-                                <label htmlFor="password">
-                                    Password
-                                </label>
+                                <label htmlFor="password">Password</label>
                                 <input placeholder="Min 6 characters" minLength={6} type="password" name="password" id="password" autoComplete="new-password" required />
                             </div>
                             {isEmailVerified && (
                                 <>
                                     <div className="grid sm:grid-cols-2 gap-4">
                                         <div className="flex flex-col">
-                                            <label htmlFor="name">
-                                                Name
-                                            </label>
+                                            <label htmlFor="name">Name</label>
                                             <input placeholder="Name" type="name" name="name" id="name" autoComplete="name" required />
                                         </div>
                                         <div className="flex flex-col">
-                                            <label htmlFor="lastName">
-                                                Last Name
-                                            </label>
+                                            <label htmlFor="lastName">Last Name</label>
                                             <input placeholder="Last name" type="lastName" name="lastName" id="lastName" autoComplete="lastName" required />
                                         </div>
                                     </div>
                                     <div className="flex flex-col">
-                                        <label htmlFor="photo">
-                                            URL photo
-                                        </label>
+                                        <label htmlFor="photo">URL photo</label>
                                         <input placeholder="https://example.com/photo.jpg" type="photo" name="photo" id="photo" autoComplete="photo" />
                                     </div>
                                     <div className="flex flex-col">
-                                        <label htmlFor="country">
-                                            Country
-                                        </label>
+                                        <label htmlFor="country">Country</label>
                                         <select name="country" defaultValue="" id="country" autoComplete="country" required>
                                             <option value="" disabled>
                                                 Select a country
