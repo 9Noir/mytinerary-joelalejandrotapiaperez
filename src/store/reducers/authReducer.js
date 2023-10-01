@@ -68,7 +68,8 @@ export const authReducer = createReducer(initialState, (builder) =>
             },
         }))
         .addCase(tokenSignin.fulfilled, (state, action) => {
-            const { user, token } = action.payload.response;
+            const user = action.payload.response?.user || null;
+            const token = action.payload.response?.token || null;
             return { ...state, user: user, token: token };
         })
         .addCase(userUpdate.fulfilled, (state, action) => {

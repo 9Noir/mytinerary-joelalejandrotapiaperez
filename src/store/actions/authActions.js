@@ -29,7 +29,11 @@ export const signin = createAsyncThunk("signin", async (obj) => {
     if (data.success) localStorage.token = data.response.token;
     return data;
 });
-export const tokenSignin = createAsyncThunk("tokenSignin", () => fetchData("POST", "/auth/token"));
+export const tokenSignin = createAsyncThunk("tokenSignin", async () => {
+    const data = await fetchData("POST", "/auth/token");
+    data.success ? (localStorage.token = data.response.token) : localStorage.removeItem("token");
+    return data;
+});
 export const signinGoogle = createAsyncThunk("signinGoogle", async (obj) => {
     const data = await fetchData("POST", "/auth/google", obj);
     if (data.success) localStorage.token = data.response.token;

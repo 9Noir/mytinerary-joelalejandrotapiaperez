@@ -65,7 +65,7 @@ export default function NavBar() {
                                     <ProfilePhoto className="w-7 max-sm:order-2" url={user.photo} name={user.name} />
                                     <p className="nav-link md:py-4">{user.name}</p>
                                 </Anchor>
-                                <button title="Logout" onClick={handleLogout} className="pt-[0.35rem] sm:hover:scale-110 duration-200 active:animate-ping drop-shadow-lg fa-solid fa-right-to-bracket text-left"></button>
+                                <button title="Logout" onClick={handleLogout} className="sm:hover:scale-110 duration-200 active:animate-ping drop-shadow-lg fa-solid fa-right-to-bracket text-left"></button>
                             </>
                         ) : (
                             <Button onClick={() => navbarToggle(true)} className="px-5 !py-3" to="/signin">

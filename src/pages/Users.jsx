@@ -16,7 +16,7 @@ export default function Users() {
     }, []);
 
     return !localStorage.token || loggedInUser?.role !== "admin" ? (
-        <Navigate to="/cities" />
+        <Navigate to="/home" />
     ) : (
         <>
             <BgImg className="!h-[50vh] object-bottom" url="../img/users.jpg" />
